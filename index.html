@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hugh Robertson</title>
+<meta name="description" content="Hugh Robertson — AI systems builder. Deployment Strategist / Applied AI Engineer. Chicago.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #15191F;
+    --ink-soft: #4A5057;
+    --paper: #E7E2D6;
+    --paper-raised: #F3EFE4;
+    --line: #C7C0AE;
+    --stamp: #A6382C;
+    --link: #3E5C76;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 88px 28px 100px;
+  }
+  h1, h2, h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 500;
+    margin: 0;
+  }
+  a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:hover { color: var(--stamp); }
+
+  /* Hero */
+  .hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.1rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.08;
+    max-width: 13ch;
+  }
+  .hero .role {
+    margin-top: 18px;
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    max-width: 46ch;
+  }
+  .hero .location {
+    margin-top: 10px;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+
+  hr.rule {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 56px 0;
+  }
+
+  /* Section labels */
+  .section-label {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .section-intro {
+    color: var(--ink-soft);
+    max-width: 56ch;
+    margin-bottom: 40px;
+  }
+
+  /* Case entries */
+  .case {
+    padding: 28px 0;
+    border-top: 1px solid var(--line);
+  }
+  .case:first-of-type { border-top: none; padding-top: 0; }
+
+  .case-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .case-head h3 {
+    font-size: 1.35rem;
+    font-weight: 500;
+  }
+  .stamp {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--stamp);
+    border: 1.5px solid var(--stamp);
+    padding: 2px 9px;
+    border-radius: 2px;
+    transform: rotate(-3deg);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .case p { margin: 12px 0 0; max-width: 60ch; }
+  .case .what { color: var(--ink); }
+  .case .verified {
+    margin-top: 12px;
+    padding-left: 14px;
+    border-left: 2px solid var(--stamp);
+    color: var(--ink-soft);
+    font-size: 0.97rem;
+  }
+  .case .verified b { color: var(--ink); font-weight: 600; }
+  .case .repo-link { margin-top: 14px; font-size: 0.95rem; }
+  .case .repo-link a { font-family: 'IBM Plex Sans', monospace, sans-serif; }
+
+  /* Background */
+  .background p {
+    max-width: 60ch;
+    color: var(--ink);
+  }
+  .background .roles {
+    margin-top: 18px;
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+  }
+
+  footer {
+    margin-top: 56px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+
+  /* Reasoning reveal */
+  details.reasoning {
+    margin-top: 18px;
+  }
+  details.reasoning summary {
+    list-style: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    color: var(--link);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+  details.reasoning summary::-webkit-details-marker { display: none; }
+  details.reasoning summary::before {
+    content: '+';
+    display: inline-block;
+    width: 16px;
+    text-align: center;
+    color: var(--stamp);
+    font-weight: 600;
+    transition: transform 0.25s ease;
+  }
+  details.reasoning[open] summary::before {
+    content: '+';
+    transform: rotate(45deg);
+  }
+  details.reasoning summary:hover { color: var(--stamp); }
+
+  .reasoning-body {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.35s ease;
+  }
+  details.reasoning[open] .reasoning-body {
+    max-height: 900px;
+  }
+
+  .decision {
+    padding: 16px 0 16px 18px;
+    border-left: 2px solid var(--line);
+    margin-top: 14px;
+  }
+  .decision p { margin: 0; max-width: 58ch; }
+  .decision p + p { margin-top: 6px; }
+  .d-chose {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .d-over {
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+  .decision code {
+    background: var(--paper-raised);
+    padding: 1px 5px;
+    border-radius: 2px;
+    font-size: 0.92em;
+  }
+  .d-because {
+    color: var(--ink-soft);
+    font-size: 0.96rem;
+  }
+
+  /* Visual demo module */
+  .demo {
+    margin: 18px 0 4px;
+    padding: 20px 18px;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+  }
+  .demo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .demo-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+  .demo-play {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--stamp);
+    background: none;
+    border: 1.5px solid var(--stamp);
+    border-radius: 3px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .demo-play:hover { background: var(--stamp); color: var(--paper-raised); }
+  .demo-flow {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2px;
+    padding: 6px 0 4px;
+  }
+  .demo-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    width: 92px;
+  }
+  .demo-icon-wrap {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 2px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-soft);
+    background: var(--paper);
+    transition: border-color 0.4s ease, color 0.4s ease, transform 0.4s ease;
+  }
+  .demo-node.active .demo-icon-wrap {
+    border-color: var(--link);
+    color: var(--link);
+    transform: scale(1.08);
+  }
+  .demo-node.outcome-success .demo-icon-wrap { border-color: var(--stamp); color: var(--stamp); }
+  .demo-node.outcome-reject .demo-icon-wrap { border-color: var(--ink-soft); color: var(--ink-soft); }
+  .demo-icon-wrap svg.demo-icon-check,
+  .demo-icon-wrap svg.demo-icon-reject { display: none; }
+  .demo-node.outcome-success .demo-icon-pending,
+  .demo-node.outcome-success .demo-icon-reject { display: none; }
+  .demo-node.outcome-success .demo-icon-check { display: block; }
+  .demo-node.outcome-reject .demo-icon-pending,
+  .demo-node.outcome-reject .demo-icon-check { display: none; }
+  .demo-node.outcome-reject .demo-icon-reject { display: block; }
+  .demo-node span.demo-node-label {
+    font-size: 0.76rem;
+    color: var(--ink-soft);
+    text-align: center;
+    transition: color 0.3s ease, font-weight 0.3s ease;
+  }
+  .demo-node.active span.demo-node-label,
+  .demo-node.outcome-success span.demo-node-label,
+  .demo-node.outcome-reject span.demo-node-label { color: var(--ink); font-weight: 600; }
+  .demo-arrow { color: var(--line); margin-top: 24px; flex-shrink: 0; transition: color 0.4s ease; }
+  .demo-arrow.active { color: var(--link); }
+  .demo-caption {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    min-height: 1.3em;
+    margin-top: 8px;
+  }
+  .demo-toggle-row { text-align: center; margin-top: 12px; }
+  .demo-toggle {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: none;
+    border: none;
+    color: var(--link);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    font-size: 0.83rem;
+    cursor: pointer;
+    padding: 0;
+  }
+  .demo-toggle:hover { color: var(--stamp); }
+
+  @media (max-width: 560px) {
+    .demo-flow { flex-direction: column; align-items: center; gap: 8px; }
+    .demo-arrow { transform: rotate(90deg); margin: 0; }
+    .demo-node { width: 140px; }
+  }
+
+  @media (max-width: 560px) {
+    .wrap { padding: 56px 20px 72px; }
+    hr.rule { margin: 40px 0; }
+    .case-head { flex-direction: column; align-items: flex-start; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <section class="hero">
+    <h1>Hugh Robertson</h1>
+    <p class="role">I build AI systems that make real decisions in production, then test the failure path myself before I trust them. Looking for Deployment Strategist / Applied AI Engineer work.</p>
+    <p class="location">Chicago · <a href="https://linkedin.com/in/hughprobertson">linkedin.com/in/hughprobertson</a></p>
+  </section>
+
+  <hr class="rule">
+
+  <section>
+    <h2 class="section-label">What I've built</h2>
+    <p class="section-intro">Four projects, each verified against something real rather than taken on faith.</p>
+
+    <div class="case">
+      <div class="case-head">
+        <h3>Guarded Salesforce MCP Server</h3>
+        <span class="stamp">Verified</span>
+      </div>
+      <p class="what">An MCP server that only lets an AI client write to Salesforce through a propose-then-confirm step. The server holds the "before" state itself, so a client can't forge or skip the check, and it re-verifies against the live record before every write.</p>
+      <p class="verified"><b>How I know it works:</b> tested against a real Salesforce Developer org, including a genuine concurrent-edit rejection I created by hand in the Salesforce UI mid-flow — not simulated in code.</p>
+
+      <div class="demo" id="sf-demo">
+        <div class="demo-header">
+          <span class="demo-label">See it work</span>
+          <button class="demo-play" onclick="playDemo('sf-demo', false)">&#9654; Watch it work</button>
+        </div>
+        <div class="demo-flow">
+          <div class="demo-node" data-step="0">
+            <div class="demo-icon-wrap">
+              <svg class="demo-icon-pending" viewBox="0 0 24 24" width="26" height="26"><path d="M4 20l1-4L17 4l3 3L8 19l-4 1z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            </div>
+            <span class="demo-node-label">Propose</span>
+          </div>
+          <div class="demo-arrow" data-arrow="0">
+            <svg viewBox="0 0 32 10" width="32" height="10"><line x1="1" y1="5" x2="26" y2="5" stroke="currentColor" stroke-width="1.6"/><path d="M22 1l5 4-5 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg>
+          </div>
+          <div class="demo-node" data-step="1">
+            <div class="demo-icon-wrap">
+              <svg class="demo-icon-pending" viewBox="0 0 24 24" width="26" height="26"><path d="M12 3l7 3v5c0 5-3.5 8-7 9-3.5-1-7-4-7-9V6l7-3z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            </div>
+            <span class="demo-node-label">Verify live record</span>
+          </div>
+          <div class="demo-arrow" data-arrow="1">
+            <svg viewBox="0 0 32 10" width="32" height="10"><line x1="1" y1="5" x2="26" y2="5" stroke="currentColor" stroke-width="1.6"/><path d="M22 1l5 4-5 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg>
+          </div>
+          <div class="demo-node" data-step="2">
+            <div class="demo-icon-wrap">
+              <svg class="demo-icon-pending" viewBox="0 0 24 24" width="26" height="26"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+              <svg class="demo-icon-check" viewBox="0 0 24 24" width="26" height="26"><path d="M5 13l4 4L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg class="demo-icon-reject" viewBox="0 0 24 24" width="26" height="26"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+            </div>
+            <span class="demo-node-label">Write</span>
+          </div>
+        </div>
+        <p class="demo-caption">&nbsp;</p>
+        <div class="demo-toggle-row">
+          <button class="demo-toggle" onclick="playDemo('sf-demo', true)">Show what happens if the record changed first</button>
+        </div>
+      </div>
+
+      <details class="reasoning">
+        <summary>Show my reasoning</summary>
+        <div class="reasoning-body">
+          <div class="decision">
+            <p><span class="d-chose">Chose</span> a two-step propose_update / confirm_update split <span class="d-over">over</span> a single write_update call</p>
+            <p class="d-because">Because a client-supplied "before" state can be forged or wrong, on purpose or by bug. Splitting the write means the server, not the caller, owns the truth about what's about to change.</p>
+          </div>
+          <div class="decision">
+            <p><span class="d-chose">Chose</span> native <code>fetch</code> and Node's built-ins <span class="d-over">over</span> jsforce, axios, dotenv, uuid</p>
+            <p class="d-because">Because every dependency is a black box between a reviewer and what the code actually does. Node already does most of what those libraries offer natively.</p>
+          </div>
+          <div class="decision">
+            <p><span class="d-chose">Chose</span> classifying failures by type before retrying <span class="d-over">over</span> a blanket retry on any failure</p>
+            <p class="d-because">Because a 4xx fails the same way on every retry — the request is wrong, not unlucky. Only transient failures (5xx, network) are worth retrying.</p>
+          </div>
+          <div class="decision">
+            <p><span class="d-chose">Chose</span> deliberately breaking the guard and forcing a real conflict by hand <span class="d-over">over</span> trusting a green test suite</p>
+            <p class="d-because">Because a test that has never failed proves nothing. I broke the stale-check, watched the test fail as it should, reverted it, then forced a genuine conflict by hand-editing the record in Salesforce mid-flow — not in code.</p>
+          </div>
+        </div>
+      </details>
+
+      <p class="repo-link"><a href="https://github.com/hughrobertson19/mcp-salesforce-server">github.com/hughrobertson19/mcp-salesforce-server</a></p>
+    </div>
+
+    <div class="case">
+      <div class="case-head">
+        <h3>Shayke</h3>
+        <span class="stamp">Verified</span>
+      </div>
+      <p class="what">A chat-first AI sales execution platform — the product I'm building as founder. Nothing the product tells a seller about their own accounts may be unverified; that's an architectural rule, enforced structurally, not a style guideline.</p>
+      <p class="verified"><b>How I know it works:</b> the public repo is a build ledger, not a highlight reel — halts, corrections, and costs are all in it.</p>
+
+      <details class="reasoning">
+        <summary>Show my reasoning</summary>
+        <div class="reasoning-body">
+          <div class="decision">
+            <p><span class="d-chose">Chose</span> requiring the grading model to quote the exact words behind its verdict, character for character <span class="d-over">over</span> trusting a model's stated verdict on its own</p>
+            <p class="d-because">Because it forces the quote to be real, even though it doesn't prove the quote is relevant. A narrower, honest guarantee beats a broader one nobody can check.</p>
+          </div>
+          <div class="decision">
+            <p><span class="d-chose">Chose</span> publishing halts and corrections on purpose <span class="d-over">over</span> only showing what passed</p>
+            <p class="d-because">Because a green wall tells you nothing.</p>
+          </div>
+          <div class="decision">
+            <p><span class="d-chose">Chose</span> tracking "registered" and "running" as separate fields for every agent <span class="d-over">over</span> one combined headcount number</p>
+            <p class="d-because">Because conflating them is how fleets get oversold.</p>
+          </div>
+          <div class="decision">
+            <p><span class="d-chose">Chose</span> leaving cost fields null until they can be attributed to a specific run <span class="d-over">over</span> estimating them</p>
+            <p class="d-because">Because an estimated number that looks real is worse than an honest gap.</p>
+          </div>
+        </div>
+      </details>
+
+      <p class="repo-link"><a href="https://github.com/hughrobertson19/shayke-public">github.com/hughrobertson19/shayke-public</a></p>
+    </div>
+
+    <div class="case">
+      <div class="case-head">
+        <h3>Lead-Gen Pipeline</h3>
+        <span class="stamp">Verified</span>
+      </div>
+      <p class="what">Python + Google Places API + LLM enrichment, loading every restaurant in Chicagoland into the CRM with account overviews and pain-point angles. Replaced manual entry for the whole sales team.</p>
+      <p class="verified"><b>How I know it works:</b> built and run solo, in production, while carrying a full sales quota as an individual contributor — not a side project done instead of the job.</p>
+
+      <details class="reasoning">
+        <summary>Show my reasoning</summary>
+        <div class="reasoning-body">
+          <div class="decision">
+            <p><span class="d-chose">Chose</span> a read-only connection to the source CRM plus a separate warehouse database <span class="d-over">over</span> writing transformed data back into the system it read from</p>
+            <p class="d-because">Because writing back into the system you read from is the most common way these things go wrong. Here it's prevented by the database connection itself, not by remembering not to.</p>
+          </div>
+          <div class="decision">
+            <p><span class="d-chose">Chose</span> a deterministic template for enrichment <span class="d-over">over</span> calling an LLM on every row</p>
+            <p class="d-because">Because the model wrote better prose, but the template is free, reproducible, and auditable — every profile stores the exact template id that produced it, so "why did it say that" is a query, not a guess.</p>
+          </div>
+          <div class="decision">
+            <p><span class="d-chose">Chose</span> flagging and quarantining bad rows <span class="d-over">over</span> dropping them</p>
+            <p class="d-because">Because in a sales CRM a missing field is often the signal itself. An account with no reachable contact is exactly the one a rep needs flagged, so dropping it deletes the finding.</p>
+          </div>
+          <div class="decision">
+            <p><span class="d-chose">Chose</span> an explicit <code>--as-of</code> argument <span class="d-over">over</span> reading today's date at run time</p>
+            <p class="d-because">Because "future-dated" has to be defined against a fixed point, or the pipeline stops being reproducible the moment the real calendar moves past the dataset.</p>
+          </div>
+        </div>
+      </details>
+
+      <p class="repo-link"><a href="https://github.com/hughrobertson19/swipeby-pipeline">github.com/hughrobertson19/swipeby-pipeline</a></p>
+    </div>
+
+    <div class="case">
+      <div class="case-head">
+        <h3>Field Sales OS</h3>
+        <span class="stamp">Verified</span>
+      </div>
+      <p class="what">An offline-first iPad app for a family member's field sales territory — voice-to-CRM capture, on-device OCR, and offline caching for reps working areas with dead signal.</p>
+      <p class="verified"><b>How I know it works:</b> a two-phase provider-matching pass against real territory data hit a 100% match rate; the public version runs on sanitized synthetic data.</p>
+      <p class="repo-link"><a href="https://github.com/hughrobertson19/field-sales-os">github.com/hughrobertson19/field-sales-os</a></p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section class="background">
+    <h2 class="section-label">Before this</h2>
+    <p>Seven years as a police officer in Australia, a year as an armoured vehicle crewman, Division I football at Illinois enrolled at 27, then full-cycle B2B sales — sourcing, selling, onboarding, and supporting accounts myself, start to finish. Each one taught the same thing a different way: don't trust a claim you haven't tested yourself.</p>
+  </section>
+
+  <footer>
+    <span>Hugh Robertson — Chicago</span>
+    <span><a href="https://linkedin.com/in/hughprobertson">LinkedIn</a></span>
+  </footer>
+
+</div>
+<script>
+function playDemo(id, conflict) {
+  var root = document.getElementById(id);
+  var nodes = root.querySelectorAll('.demo-node');
+  var arrows = root.querySelectorAll('.demo-arrow');
+  var caption = root.querySelector('.demo-caption');
+  var captions = conflict
+    ? ['Proposing a field update...', 'Checking the live record...', 'Someone changed it first \u2014 write rejected']
+    : ['Proposing a field update...', 'Checking the live record...', 'Nothing changed \u2014 write confirmed'];
+
+  nodes.forEach(function(n){ n.classList.remove('active','outcome-success','outcome-reject'); });
+  arrows.forEach(function(a){ a.classList.remove('active'); });
+  caption.textContent = '\u00A0';
+
+  var timings = [0, 850, 1750];
+  timings.forEach(function(t, i){
+    setTimeout(function(){
+      nodes[i].classList.add('active');
+      if (i > 0) arrows[i-1].classList.add('active');
+      caption.textContent = captions[i];
+      if (i === 2) {
+        nodes[2].classList.remove('active');
+        nodes[2].classList.add(conflict ? 'outcome-reject' : 'outcome-success');
+      }
+    }, t);
+  });
+}
+</script>
+</body>
+</html>
