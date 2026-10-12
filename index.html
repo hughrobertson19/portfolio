@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hugh Robertson | AI systems and the checks that keep them honest</title>
+<meta name="description" content="Hugh Robertson builds AI systems and the evaluation that keeps them honest. Every claim on this page carries its date or its gap.">
+<meta name="author" content="Hugh Robertson">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EEF2F5; --ink:#1B2A41; --muted:#4D5B70; --rule:#C9D3DD;
+  --pass:#2F7D5B; --gap:#B4790E; --branch:#5B5F97; --panel:#FFFFFF;
+  --display:"Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body:"Literata", Georgia, "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#121A26; --ink:#E6ECF2; --muted:#A3B0C0; --rule:#2C3A4D;
+    --pass:#5FBF8F; --gap:#E0A93A; --branch:#9EA2E0; --panel:#1A2433;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.65;
+  padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+a{color:inherit;text-underline-offset:3px}
+a:focus-visible{outline:3px solid var(--branch);outline-offset:3px}
+.wrap{max-width:46rem;margin:0 auto;padding:0 1.25rem}
+header.hero{padding:4.5rem 0 2.5rem;border-bottom:1px solid var(--rule)}
+.name{font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:.02em;margin:0 0 2rem;color:var(--muted)}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(2.1rem,6vw,3.4rem);line-height:1.05;margin:0 0 1.25rem;letter-spacing:-.02em}
+.lede{font-size:1.2rem;max-width:38rem;margin:0 0 1.5rem;color:var(--muted)}
+.links{display:flex;flex-wrap:wrap;gap:1rem;font-family:var(--display);font-weight:500}
+section{padding:3rem 0;border-bottom:1px solid var(--rule)}
+h2{font-family:var(--display);font-weight:700;font-size:1.6rem;line-height:1.2;margin:0 0 .5rem}
+.context{color:var(--muted);margin:0 0 1.5rem}
+blockquote{margin:1.5rem 0 2rem;padding:0 0 0 1.25rem;border-left:4px solid var(--ink);font-size:1.3rem;line-height:1.4}
+blockquote cite{display:block;font-size:.95rem;color:var(--muted);font-style:normal;margin-top:.5rem}
+/* the one memorable element: the wall between the agents and the scorer */
+.wall{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin:2rem 0;font-family:var(--display);font-size:.95rem}
+.lane{background:var(--panel);padding:1.1rem;border:1px solid var(--rule)}
+.lane h3{margin:0 0 .4rem;font-size:1rem}
+.lane p{margin:0;font-family:var(--body);color:var(--muted);font-size:.95rem;line-height:1.5}
+.divider{width:3.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;
+  background:repeating-linear-gradient(90deg,transparent 0 22px,var(--ink) 22px 26px,transparent 26px 48px)}
+.divider span{background:var(--paper);padding:.2rem .3rem;font-size:.75rem;text-align:center;line-height:1.2}
+@media (max-width:560px){
+  .wall{grid-template-columns:1fr}
+  .divider{width:auto;height:3rem;background:repeating-linear-gradient(0deg,transparent 0 10px,var(--ink) 10px 14px,transparent 14px 24px)}
+}
+ul.claims{list-style:none;padding:0;margin:1.5rem 0 0}
+ul.claims li{padding:.9rem 0;border-top:1px solid var(--rule);display:grid;grid-template-columns:8.5rem 1fr;gap:1rem}
+.tag{font-family:var(--display);font-weight:700;font-size:.8rem;line-height:1.35;padding-top:.25rem}
+.tag.pass{color:var(--pass)} .tag.gap{color:var(--gap)} .tag.branch{color:var(--branch)}
+@media (max-width:560px){ul.claims li{grid-template-columns:1fr;gap:.2rem}}
+.demo{background:var(--panel);border:1px solid var(--rule);padding:1.25rem;margin:1.5rem 0}
+.demo ol{margin:.5rem 0 0;padding-left:1.25rem}
+footer{padding:2.5rem 0 4rem;color:var(--muted);font-size:.95rem}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.9em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <p class="name">Hugh Robertson, Chicago</p>
+  <h1>I build AI systems, and the checks that keep them honest.</h1>
+  <p class="lede">I came to this from selling, after seven years as a police officer. I want to be the person who puts AI into a business and can show you whether it actually works. Every claim below carries the date I checked it, or says plainly what isn't done yet.</p>
+  <nav class="links" aria-label="Links">
+    <a href="https://github.com/hughrobertson19">GitHub</a>
+    <a href="https://github.com/hughrobertson19/shayke-public">Shayke, public repo</a>
+    <a href="https://github.com/hughrobertson19/mcp-salesforce-server">MCP server</a>
+  </nav>
+</header>
+
+<section id="honest">
+  <h2>How I keep AI agents honest</h2>
+  <p class="context">Shayke is an applied learning project: a sales assistant I've built with AI coding agents, in my own time, to learn how production AI systems are designed. No customers.</p>
+
+  <blockquote>Once a number becomes the target, it stops measuring the work.
+    <cite>Goodhart's law. If an agent can see or shape its score, it will learn to chase the score.</cite>
+  </blockquote>
+
+  <p>So I split the system in two. The agents that do the work sit on one side. The scorer that judges them sits in its own repo on the other side. Results cross the line as plain files, never as code the agents can call.</p>
+
+  <div class="wall" role="img" aria-label="Diagram: agents on the left, scorer on the right, separated by a wall that only result files cross">
+    <div class="lane"><h3>The agents</h3><p>Do the work. Never import the scorer. Tests fail if their code tries to.</p></div>
+    <div class="divider"><span>result files only</span></div>
+    <div class="lane"><h3>The scorer</h3><p>Lives in its own repo. Headless agent sessions can't edit the golden test cases.</p></div>
+  </div>
+
+  <p>Then, every night at 3:30am, a separate evaluator plays simulated sellers against the latest product build, plus one adversarial tester whose job is to break it. Think of mystery shoppers who come in every night, one of them trying to cause trouble.</p>
+
+  <ul class="claims">
+    <li><span class="tag pass">Checked 12 Oct 2026</span><span>The nightly evaluator passed 19 of 19 scenarios on its hard checks.</span></li>
+    <li><span class="tag pass">Checked 12 Oct 2026</span><span>The product's test suite: 10,446 passed, 32 skipped.</span></li>
+    <li><span class="tag pass">Checked 12 Oct 2026</span><span>The agents read results through files only; tests check that agent code doesn't import the scorer or name where scores are stored.</span></li>
+    <li><span class="tag branch">Built, not merged</span><span>The next scorer makes the AI judge quote the exact words behind its verdict, and voids the verdict if the quote isn't really there. The quote check itself is public and runnable in <code>lib/quotable_span/</code>.</span></li>
+    <li><span class="tag gap">Known gap</span><span>Nothing at runtime stops an agent opening a score file yet. Today that's convention plus tests. It's the next thing I'd close.</span></li>
+    <li><span class="tag gap">Status</span><span>The agent fleet is paused. The nightly evaluator and a few scheduled jobs still run on one machine.</span></li>
+  </ul>
+</section>
+
+<section id="swipeby">
+  <h2>Putting AI in front of real users: SwipeBy AI</h2>
+  <p class="context">Sales Manager and Account Executive, March 2025 to February 2026.</p>
+  <p>I sourced, sold, onboarded, configured and supported every account. 12 multi-unit deals and about $60K in ARR in my first three months, a company record, and a promotion at three months. I moved to Chicago to open the market here.</p>
+  <p>Nobody asked me to, but I built a lead pipeline in Python with the Google Places API and a language model that loaded restaurants and wrote up their pain points, replacing manual CRM entry. AI wrote much of the code; I designed it, directed it and ran it. I also built a shared AI assistant that put research on each location in reps' hands before a visit, and grounded it so every claim had to come from its knowledge base. My reps used it without being told to.</p>
+  <p><a href="https://github.com/hughrobertson19/swipeby-pipeline">Read the rebuild of the pipeline</a></p>
+</section>
+
+<section id="mcp">
+  <h2>An AI that asks before it writes to your CRM</h2>
+  <p class="context">A small public piece I built to learn how an AI should change real customer records.</p>
+  <div class="demo">
+    <strong>What I can show you live</strong>
+    <ol>
+      <li>The AI proposes an edit to a Salesforce contact.</li>
+      <li>Someone changes that contact underneath it.</li>
+      <li>The AI's confirm is rejected, because the record no longer matches what it saw.</li>
+    </ol>
+  </div>
+  <ul class="claims">
+    <li><span class="tag pass">Tested 6 Oct 2026</span><span>I ran propose then confirm, and the stale write rejection, myself against a Salesforce Developer org.</span></li>
+    <li><span class="tag gap">Scope</span><span>Contacts only, running locally. It guards the fields it names; it isn't full coverage.</span></li>
+  </ul>
+  <p><a href="https://github.com/hughrobertson19/mcp-salesforce-server">See the code and the decision log</a></p>
+</section>
+
+<section id="background">
+  <h2>Before this</h2>
+  <p>Seven years as a Senior Constable with Victoria Police: deciding under pressure with incomplete information, then standing behind the decision. A year as Australian Army tank crew. Division I football at the University of Illinois, and a BS in Management from Gies. Most recently a Sales Development Representative at UL Solutions, where I built $864K in pipeline across 12 opportunities.</p>
+  <p>I'm looking for deployment strategist, GTM engineer, solutions and customer engineer, and applied AI roles in Chicago or remote.</p>
+</section>
+
+<footer>
+  Last checked 12 October 2026. If a claim here has no date, treat it as unverified and ask me.
+</footer>
+
+</div>
+</body>
+</html>
