@@ -3,14 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hugh Robertson</title>
+<title>Hugh Robertson | Builds and tests AI systems</title>
 <meta name="theme-color" content="#F2F5F8" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0D141B" media="(prefers-color-scheme: dark)">
-<meta property="og:title" content="Hugh Robertson">
-<meta property="og:description" content="How I keep AI agents away from their scorer, and how I test an AI product every night.">
+<meta property="og:title" content="Hugh Robertson | Builds and tests AI systems">
+<meta property="og:description" content="How I keep AI agents from grading their own homework, and how I test an AI product every night.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://aihugh.org/">
+<meta property="og:image" content="https://aihugh.org/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Hugh Robertson. Builds and tests AI systems.">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%230A5EA8%27/%3E%3Cpath d=%27M16 5v22%27 stroke=%27%23fff%27 stroke-width=%273%27 stroke-dasharray=%274 3%27/%3E%3C/svg%3E">
-<meta name="description" content="Hugh Robertson, solutions engineer. How I keep AI agents away from their scorer, and how I test an AI product every night.">
+<meta name="description" content="Hugh Robertson. Sold and onboarded every SwipeBy customer, now builds and tests AI systems. Looking for solutions engineer and deployment roles in Chicago or remote.">
 <style>
 /* Layout: one column, 760px measure. Boldness lives in the wall diagram; everything else stays quiet. */
 :root{
@@ -40,9 +46,10 @@ h1{font-size:clamp(2rem,6.2vw,2.9rem);line-height:1.1}
 h2{font-size:1.55rem;line-height:1.2}
 p{margin:0}
 .eyebrow{font:600 .75rem/1 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
-.top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 20px;font-size:.95rem}
-.top b{font-weight:650}
-.top span{color:var(--muted)}
+.top{display:flex;flex-direction:column;gap:6px;font-size:.95rem}
+.top b{font-family:var(--serif);font-weight:600;font-size:1.25rem;line-height:1.2}
+.top .pitch{color:var(--ink);max-width:62ch}
+.top .seek{color:var(--muted);max-width:62ch}
 .hero{display:flex;flex-direction:column;gap:16px}
 .hero .lede{font-size:1.1rem;color:var(--muted);max-width:62ch}
 .hero .lede strong{color:var(--ink);font-weight:600}
@@ -126,17 +133,19 @@ footer{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--lin
 
 <header class="top">
   <b>Hugh Robertson</b>
-  <span>Chicago or remote</span>
+  <p class="pitch">I sold and onboarded every SwipeBy customer myself. Now I build AI systems and the tests that check them.</p>
+  <p class="seek">Looking for solutions engineer, customer engineer, deployment strategist, go-to-market engineer, and applied AI engineer roles in Chicago or remote.</p>
 </header>
 
 <section class="hero">
-  <p class="eyebrow">Evaluating AI agents</p>
+  <p class="eyebrow">How I check AI agents</p>
   <h1>Agents should not be able to grade their own homework.</h1>
-  <p class="lede"><strong>Goodhart's law:</strong> when a measure becomes a target, it stops being a good measure. Below is how I keep AI agents away from their scorer, and how I test the product every night. It is part of Shayke, an applied learning project I built with AI coding agents in my own time. It has no customers.</p>
+  <p class="lede">If an AI agent can chase its own score, the score stops meaning anything. That is <strong>Goodhart's law:</strong> when a measure becomes a target, it stops being a good measure. Below is how I keep agents apart from the code that scores them, and how I test the product every night. It is part of Shayke, an applied learning project I built with AI coding agents in my own time. It has no customers.</p>
 </section>
 
 <section class="sec" id="wall" aria-labelledby="h-wall">
-  <h2 id="h-wall">The wall between agents and their scorer</h2>
+  <h2 id="h-wall">Keeping agents apart from their grader</h2>
+  <p>The agents do the work. A separate program, the scorer, grades it.</p>
   <div class="fig" data-group="wall">
     <div class="wall">
       <button type="button" class="part" aria-pressed="true" aria-controls="p-wall"
@@ -144,11 +153,11 @@ footer{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--lin
         <span class="k">Left</span><span class="t">The agents</span><span class="s">Do the work</span>
       </button>
       <button type="button" class="brick" aria-pressed="false" aria-controls="p-wall"
-        data-k="What this stops" data-text="Scores and test cases leaking sideways. Only result files cross the wall, and agents read results through files only.">
+        data-k="What this stops" data-text="Only result files cross the wall. Agents read results through files only.">
         <span class="t">The wall</span><span class="s">result files only</span>
       </button>
       <button type="button" class="part" aria-pressed="false" aria-controls="p-wall"
-        data-k="What this stops" data-text="An agent editing the test it is graded on. The scorer lives in its own repo, and headless agent sessions cannot edit the golden test cases.">
+        data-k="What this stops" data-text="An agent editing the test it is graded on. The scorer lives in its own repo, and the golden test cases live there, not in the agents' code.">
         <span class="k">Right</span><span class="t">The scorer</span><span class="s">Its own repo</span>
       </button>
     </div>
@@ -160,7 +169,7 @@ footer{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--lin
         <button type="button" class="move" aria-pressed="false" aria-controls="p-wall"
           data-k="Crosses the wall" data-text="Writing a result file is the sanctioned path. Only result files cross the wall.">Write a result file</button>
         <button type="button" class="move" aria-pressed="false" aria-controls="p-wall"
-          data-k="Cannot happen" data-text="A headless agent session cannot edit the golden test cases. They live in the scorer's own repo.">Edit a golden test case</button>
+          data-k="By design" data-text="The golden test cases live in the scorer's own repo, not in the agents' code.">Edit a golden test case (an answer key)</button>
         <button type="button" class="move gapbtn" aria-pressed="false" aria-controls="p-wall" data-gap="1"
           data-k="Known gap" data-text="Nothing at runtime stops an agent opening a score file. Read protection is convention plus tests. It is the next thing I would close.">Open a score file</button>
       </div>
@@ -174,16 +183,16 @@ footer{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--lin
 </section>
 
 <section class="sec" aria-labelledby="h-night">
-  <h2 id="h-night">The nightly evaluator</h2>
+  <h2 id="h-night">A test run every night, the evaluator</h2>
   <p class="bridge">The evaluator also scores agent outputs using the scorer's checks. <a href="#wall">Back to the wall</a></p>
   <div class="fig" data-group="night">
     <ol class="flow">
       <li><button type="button" class="step" aria-pressed="true" aria-controls="p-night"
         data-k="Step 1" data-text="The run starts at 3:30am, every night."><span class="n">Step 1</span><span class="t">3:30am start</span></button></li>
       <li><button type="button" class="step" aria-pressed="false" aria-controls="p-night"
-        data-k="Step 2" data-text="Simulated sellers, plus one adversarial tester, use the latest product build."><span class="n">Step 2</span><span class="t">Simulated sellers and one adversarial tester</span></button></li>
+        data-k="Step 2" data-text="Simulated sellers, plus an adversarial tester, use the latest product build."><span class="n">Step 2</span><span class="t">Simulated sellers and an adversarial tester</span></button></li>
       <li><button type="button" class="step" aria-pressed="false" aria-controls="p-night"
-        data-k="Step 3" data-text="Hard checks decide pass or fail. Nothing else does."><span class="n">Step 3</span><span class="t">Hard checks decide</span></button></li>
+        data-k="Step 3" data-text="Hard checks decide pass or fail. Nothing else does."><span class="n">Step 3</span><span class="t">Pass or fail checks decide (hard checks)</span></button></li>
       <li><button type="button" class="step" aria-pressed="false" aria-controls="p-night"
         data-k="Step 4" data-text="Advisory items are logged separately, so a soft signal never changes the verdict."><span class="n">Step 4</span><span class="t">Advisory items logged apart</span></button></li>
       <li><button type="button" class="step" aria-pressed="false" aria-controls="p-night"
@@ -195,7 +204,7 @@ footer{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--lin
     </div>
     <div class="result">
       <span class="big">19 of 19 scenarios passed</span>
-      <span class="small">on hard checks, 12 Oct 2026. 90 nightly results on record.</span>
+      <span class="small">Latest run, on hard checks, 20 Oct 2026.</span>
     </div>
   </div>
 </section>
@@ -203,9 +212,9 @@ footer{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--lin
 <section class="sec" aria-labelledby="h-claims">
   <h2 id="h-claims">What I checked, and what I have not finished</h2>
   <ul class="claims">
-    <li><span class="tag">Checked 12 Oct 2026</span><div>Nightly evaluator: 19 of 19 scenarios passed on its hard checks. 90 nightly results on record.</div></li>
+    <li><span class="tag">Checked 20 Oct 2026</span><div>Nightly evaluator, latest run: 19 of 19 scenarios passed on its hard checks.</div></li>
     <li><span class="tag">Checked 12 Oct 2026</span><div>Product test suite: 10,446 passed, 32 skipped.</div></li>
-    <li><span class="tag">Checked 12 Oct 2026</span><div>Quote check: 39 tests passed. It is public and runnable in <a href="https://github.com/hughrobertson19/shayke-public">shayke-public</a>, folder <code>lib/quotable_span/</code>.</div></li>
+    <li><span class="tag">Checked 20 Oct 2026</span><div>Quote check: 39 tests passed. It is public and runnable in <a href="https://github.com/hughrobertson19/shayke-public">shayke-public</a>, folder <code>lib/quotable_span/</code>.</div></li>
     <li><span class="tag">Built, not merged</span><div>A judge that must quote exact evidence for its verdict. It lives on a branch.</div></li>
     <li><span class="tag warn">Known gap</span><div>Nothing at runtime stops an agent opening a score file. Read protection is convention plus tests. It is the next thing I would close.</div></li>
     <li><span class="tag">Status</span><div>The agent fleet is paused. The nightly evaluator and a few scheduled jobs still run on one machine.</div></li>
@@ -219,7 +228,7 @@ footer{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--lin
       <h3>SwipeBy, Sales Manager and Account Executive</h3>
       <span class="when">March 2025 to February 2026</span>
       <ul>
-        <li>12 multi-unit deals and about $60K in ARR in my first three months, a company record, and a promotion at three months. I moved to Chicago to open the market here.</li>
+        <li>12 multi-unit deals and about $60K in annual recurring revenue (ARR) in my first three months, a company record, and a promotion at three months. I moved to Chicago to open the market here.</li>
         <li>Nobody asked me to, but I built a lead pipeline in Python with the Google Places API and a language model that loaded restaurants and wrote up their pain points, replacing manual CRM entry. AI wrote much of the code; I designed it, directed it and ran it. <a href="https://github.com/hughrobertson19/swipeby-pipeline">Code on GitHub</a>.</li>
         <li>I also built a shared AI assistant that put research on each location in reps' hands before a visit, and grounded it so every claim had to come from its knowledge base. My reps used it without being told to.</li>
       </ul>
@@ -236,7 +245,6 @@ footer{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--lin
 </section>
 
 <footer>
-  <span>Looking for deployment strategist, GTM engineer, solutions and customer engineer, and applied AI roles in Chicago or remote.</span>
   <span><a href="mailto:hugh.p.robertson@gmail.com">hugh.p.robertson@gmail.com</a> &middot; <a href="https://github.com/hughrobertson19">GitHub</a></span>
 </footer>
 
