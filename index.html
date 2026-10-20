@@ -58,7 +58,6 @@ p{margin:0}
 
 /* diagram shell */
 .fig{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:14px}
-.fig-note{font-size:.85rem;color:var(--muted)}
 button{font:inherit;color:inherit;cursor:pointer;text-align:left}
 
 /* wall diagram */
@@ -74,7 +73,14 @@ button{font:inherit;color:inherit;cursor:pointer;text-align:left}
 .brick[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent)}
 .moves{display:flex;flex-direction:column;gap:8px}
 .moves .k{font:600 .72rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.moves .howto{color:var(--ink)}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
+.mlist{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.mlist li{border-left:4px solid var(--line);padding:4px 0 4px 12px}
+.mlist li b{font-weight:650}
+.mlist li.gapli{border-left-color:var(--warn)}
+.mlist li.on{border-left-color:var(--accent);background:var(--accent-soft)}
+.mlist li.gapli.on{border-left-color:var(--warn);background:var(--warn-soft)}
 .move{min-height:44px;border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;font-weight:600;font-size:.95rem}
 .move[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
 .gapbtn{border:2px dashed var(--warn);background:var(--warn-soft);color:var(--warn)}
@@ -85,11 +91,12 @@ button{font:inherit;color:inherit;cursor:pointer;text-align:left}
 .panel p{max-width:60ch}
 
 /* nightly flow */
-.flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:8px;counter-reset:s}
+.flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr;gap:8px}
 .flow li{display:flex}
-.step{width:100%;border:2px solid var(--line);background:var(--bg);border-radius:10px;padding:12px 10px;display:flex;flex-direction:column;gap:6px;min-height:120px}
+.step{width:100%;border:2px solid var(--line);background:var(--bg);border-radius:10px;padding:12px 14px;display:grid;grid-template-columns:64px minmax(0,1fr) minmax(0,1.5fr);gap:4px 16px;align-items:baseline}
 .step .n{font:600 .72rem/1 var(--mono);color:var(--muted);white-space:nowrap}
 .step .t{font-weight:650;font-size:.95rem;line-height:1.25}
+.step .d{font-size:.92rem;line-height:1.4;color:var(--muted)}
 .step[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
 .result{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:baseline;border-top:1px solid var(--line);padding-top:14px}
 .result .big{font-family:var(--serif);font-size:1.5rem;font-weight:600;color:var(--pass)}
@@ -118,8 +125,7 @@ footer{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--lin
 @media (max-width:720px){
   .wall{grid-template-columns:1fr;gap:8px}
   .brick{min-height:0;flex-direction:row;justify-content:center;gap:10px;padding:10px}
-  .flow{grid-template-columns:1fr}
-  .step{min-height:0;flex-direction:row;align-items:baseline;gap:12px}
+  .step{grid-template-columns:1fr}
   .roles{grid-template-columns:1fr}
   .claims li{grid-template-columns:1fr}
 }
@@ -161,24 +167,29 @@ footer{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--lin
         <span class="k">Right</span><span class="t">The scorer</span><span class="s">Its own repo</span>
       </button>
     </div>
-    <div class="moves" role="group" aria-label="Try an agent move">
-      <span class="k">Try an agent move</span>
+    <div class="moves" role="group" aria-label="Agent moves">
+      <p class="howto">Click a move to see what happens when an agent tries it.</p>
       <div class="chips">
-        <button type="button" class="move" aria-pressed="false" aria-controls="p-wall"
+        <button type="button" class="move" aria-pressed="false" aria-controls="p-wall" data-li="m1"
           data-k="Stopped by tests" data-text="The agent's code imports the scorer or names where scores are stored. Tests fail if it does either.">Import the scorer</button>
-        <button type="button" class="move" aria-pressed="false" aria-controls="p-wall"
+        <button type="button" class="move" aria-pressed="false" aria-controls="p-wall" data-li="m2"
           data-k="Crosses the wall" data-text="Writing a result file is the allowed path. Only result files cross the wall.">Write a result file</button>
-        <button type="button" class="move" aria-pressed="false" aria-controls="p-wall"
+        <button type="button" class="move" aria-pressed="false" aria-controls="p-wall" data-li="m3"
           data-k="By design" data-text="The golden test cases live in the scorer's own repo, not in the agents' code.">Edit a golden test case (an answer key)</button>
-        <button type="button" class="move gapbtn" aria-pressed="false" aria-controls="p-wall" data-gap="1"
+        <button type="button" class="move gapbtn" aria-pressed="false" aria-controls="p-wall" data-li="m4" data-gap="1"
           data-k="Known gap" data-text="Nothing at runtime stops an agent opening a score file. Read protection is convention plus tests. It is the next thing I would close.">Open a score file</button>
       </div>
+      <ul class="mlist" aria-label="What happens for each move">
+        <li data-id="m1"><b>Import the scorer:</b> stopped by tests.</li>
+        <li data-id="m2"><b>Write a result file:</b> allowed, the only path across.</li>
+        <li data-id="m3"><b>Edit a golden test case:</b> by design, they live in the scorer's own repo.</li>
+        <li data-id="m4" class="gapli"><b>Open a score file:</b> known gap, nothing at runtime stops it yet.</li>
+      </ul>
     </div>
     <div class="panel" id="p-wall" role="region" aria-live="polite" aria-label="Detail">
       <span class="k">What this stops</span>
       <p>An agent shaping its work around the scoring code. Tests fail if an agent's code imports the scorer or names where scores are stored.</p>
     </div>
-    <p class="fig-note">Tap a part, or try a move. Keyboard works too.</p>
   </div>
 </section>
 
@@ -187,21 +198,12 @@ footer{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--lin
   <p class="bridge">The evaluator also scores agent outputs using the scorer's checks. <a href="#wall">Back to the wall</a></p>
   <div class="fig" data-group="night">
     <ol class="flow">
-      <li><button type="button" class="step" aria-pressed="true" aria-controls="p-night"
-        data-k="Step 1" data-text="The run starts at 3:30am, every night."><span class="n">Step 1</span><span class="t">3:30am start</span></button></li>
-      <li><button type="button" class="step" aria-pressed="false" aria-controls="p-night"
-        data-k="Step 2" data-text="Simulated sellers, plus an adversarial tester, use the latest product build."><span class="n">Step 2</span><span class="t">Simulated sellers and an adversarial tester</span></button></li>
-      <li><button type="button" class="step" aria-pressed="false" aria-controls="p-night"
-        data-k="Step 3" data-text="Hard checks decide pass or fail. Nothing else does."><span class="n">Step 3</span><span class="t">Pass or fail checks decide (hard checks)</span></button></li>
-      <li><button type="button" class="step" aria-pressed="false" aria-controls="p-night"
-        data-k="Step 4" data-text="Advisory items are logged separately, so a soft signal never changes the verdict."><span class="n">Step 4</span><span class="t">Advisory items logged apart</span></button></li>
-      <li><button type="button" class="step" aria-pressed="false" aria-controls="p-night"
-        data-k="Step 5" data-text="The result is recorded with its date and the product build it ran against."><span class="n">Step 5</span><span class="t">Result recorded with date and build</span></button></li>
+      <li><button type="button" class="step" aria-pressed="false" data-text="The run starts at 3:30am, every night."><span class="n">Step 1</span><span class="t">3:30am start</span><span class="d">The run starts at 3:30am, every night.</span></button></li>
+      <li><button type="button" class="step" aria-pressed="false" data-text="Simulated sellers, plus an adversarial tester, use the latest product build."><span class="n">Step 2</span><span class="t">Simulated sellers and an adversarial tester</span><span class="d">Simulated sellers, plus an adversarial tester, use the latest product build.</span></button></li>
+      <li><button type="button" class="step" aria-pressed="false" data-text="Hard checks decide pass or fail. Nothing else does."><span class="n">Step 3</span><span class="t">Pass or fail checks decide (hard checks)</span><span class="d">Hard checks decide pass or fail. Nothing else does.</span></button></li>
+      <li><button type="button" class="step" aria-pressed="false" data-text="Advisory items are logged separately, so a soft signal never changes the verdict."><span class="n">Step 4</span><span class="t">Advisory items logged apart</span><span class="d">Advisory items are logged separately, so a soft signal never changes the verdict.</span></button></li>
+      <li><button type="button" class="step" aria-pressed="false" data-text="The result is recorded with its date and the product build it ran against."><span class="n">Step 5</span><span class="t">Result recorded with date and build</span><span class="d">The result is recorded with its date and the product build it ran against.</span></button></li>
     </ol>
-    <div class="panel" id="p-night" role="region" aria-live="polite" aria-label="Detail">
-      <span class="k">Step 1</span>
-      <p>The run starts at 3:30am, every night.</p>
-    </div>
     <div class="result">
       <span class="big">19 of 19 scenarios passed</span>
       <span class="small">Latest run, on hard checks, 20 Oct 2026.</span>
@@ -253,10 +255,13 @@ footer{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--lin
 (function(){
   document.querySelectorAll('[data-group]').forEach(function(g){
     var panel=g.querySelector('.panel');
+    var lis=g.querySelectorAll('.mlist li');
     var btns=g.querySelectorAll('button[data-text]');
     btns.forEach(function(b){
       b.addEventListener('click',function(){
         btns.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
+        lis.forEach(function(li){li.classList.toggle('on',li.dataset.id===b.dataset.li)});
+        if(!panel)return;
         panel.classList.toggle('gap',!!b.dataset.gap);
         panel.innerHTML='';
         var k=document.createElement('span');k.className='k';k.textContent=b.dataset.k;
