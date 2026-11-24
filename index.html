@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -16,6 +16,7 @@
 <meta property="og:image:alt" content="Hugh Robertson. Builds and tests AI systems.">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%230A5EA8%27/%3E%3Cpath d=%27M16 5v22%27 stroke=%27%23fff%27 stroke-width=%273%27 stroke-dasharray=%274 3%27/%3E%3C/svg%3E">
+<link rel="canonical" href="https://aihugh.org/">
 <meta name="description" content="Hugh Robertson. Sold and onboarded every SwipeBy customer, now builds and tests AI systems. Looking for solutions engineer and deployment roles in Chicago or remote.">
 <style>
 /* Layout: one column, 760px measure. Boldness lives in the wall diagram; everything else stays quiet. */
@@ -37,7 +38,8 @@
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 var(--sans);padding-inline:20px}
-.wrap{max-width:760px;margin-inline:auto;padding-block:28px 56px;display:flex;flex-direction:column;gap:44px}
+.wrap,main{display:flex;flex-direction:column;gap:44px}
+.wrap{max-width:760px;margin-inline:auto;padding-block:28px 56px}
 a{color:var(--accent);text-underline-offset:3px}
 a:hover{text-decoration-thickness:2px}
 :focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
@@ -143,6 +145,8 @@ footer{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--lin
   <p class="seek">Looking for solutions engineer, customer engineer, deployment strategist, go-to-market engineer, and applied AI engineer roles in Chicago or remote.</p>
 </header>
 
+<main>
+
 <section class="hero">
   <p class="eyebrow">How I check AI agents</p>
   <h1>Agents should not be able to grade their own homework.</h1>
@@ -179,17 +183,17 @@ footer{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--lin
         <button type="button" class="move gapbtn" aria-pressed="false" aria-controls="p-wall" data-li="m4" data-gap="1"
           data-k="Known gap" data-text="Nothing at runtime stops an agent opening a score file. Read protection is convention plus tests. It is the next thing I would close.">Open a score file</button>
       </div>
-      <ul class="mlist" aria-label="What happens for each move">
+      <ul class="mlist" role="list" aria-label="What happens for each move">
         <li data-id="m1"><b>Import the scorer:</b> stopped by tests.</li>
         <li data-id="m2"><b>Write a result file:</b> allowed, the only path across.</li>
         <li data-id="m3"><b>Edit a golden test case:</b> by design, they live in the scorer's own repo.</li>
         <li data-id="m4" class="gapli"><b>Open a score file:</b> known gap, nothing at runtime stops it yet.</li>
       </ul>
     </div>
-    <div class="panel" id="p-wall" role="region" aria-live="polite" aria-label="Detail">
+    <section class="panel" id="p-wall" aria-live="polite" aria-label="Detail">
       <span class="k">What this stops</span>
       <p>An agent shaping its work around the scoring code. Tests fail if an agent's code imports the scorer or names where scores are stored.</p>
-    </div>
+    </section>
   </div>
 </section>
 
@@ -245,6 +249,8 @@ footer{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--lin
     </div>
   </div>
 </section>
+
+</main>
 
 <footer>
   <span><a href="mailto:hugh.p.robertson@gmail.com">hugh.p.robertson@gmail.com</a> &middot; <a href="https://github.com/hughrobertson19">GitHub</a></span>
