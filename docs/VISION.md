@@ -24,9 +24,9 @@ aihugh.org is the page employers open to check Hugh's work before or after an ap
 
 ## Next steps, smallest first
 
-1. Full copy refresh draft for Hugh's review (issue #1, NEEDS HUGH: copy PR).
-2. One command site check (HTML, accessibility, links) so every night proves the page still works.
-3. After Hugh approves the copy: one short page or section per project, each with a one line interview summary.
+1. Hugh reviews the copy refresh draft (PR #4). Drafted 24 Nov.
+2. Run `tools/check-site` on every push and every night with a GitHub Actions workflow (the check itself shipped 24 Nov, PR #6).
+3. After Hugh approves the copy: an exhibit per project (a screenshot or short walkthrough Hugh approves), since the code is private.
 4. A watch on aihugh.org itself once the fleet's network can reach it (today it cannot; see PLAYBOOK).
 
 ## Open questions
