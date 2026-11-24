@@ -8,17 +8,30 @@ Hugh Robertson's portfolio page: what he has built, how he tests AI systems, and
 - `og.png` is the link preview image (1200 x 630).
 - Cloudflare Pages deploys `main` to aihugh.org on every push. Other branches get a preview link from the "Cloudflare Pages" check on the commit.
 - `_redirects` keeps repo files (`docs/`, `tools/`, this README) off the live site.
+- `tools/check-site/` is the one command site check (below).
 
 ## Checks
 
-Run before any merge:
+One command, run before any merge:
 
-1. HTML: `npx html-validate index.html` (recommended rules, with `no-redundant-role` off: `role="list"` on the styled list is deliberate, because Safari drops list semantics when `list-style` is none).
-2. Accessibility: axe-core in Playwright at 390 and 1280 px, light and dark.
-3. Speed: Lighthouse, mobile and desktop.
-4. Links: every link opens a public page.
+```
+cd tools/check-site
+npm install
+npx playwright install chromium   # once
+npm run check                     # or npm run check:online to also fetch external links
+```
 
-Baseline on 24 Nov 2026: no HTML errors, no axe violations, Lighthouse 100 in every category on mobile and desktop.
+It checks the page in this repo, never the live site, and prints one PASS or FAIL line per check:
+
+1. HTML: html-validate, recommended rules, with `no-redundant-role` off (`role="list"` on the styled list is deliberate, because Safari drops list semantics when `list-style` is none).
+2. Size: `index.html` under 40 KB, `og.png` under 100 KB and 1200 x 630.
+3. Accessibility: axe-core (WCAG 2.2 AA and best practice) at 390 and 1280 px, light and dark, plus no horizontal scroll and no console errors.
+4. Interaction: every diagram button updates its pressed state and the detail panel, and colour contrast holds in every state.
+5. Links: every in-page anchor and `aria-controls` target exists; external links are listed, and fetched with `--online`.
+
+It exits 0 only when every check passes. Set `SITE_DIR` to check another copy of the page.
+
+Baseline on 24 Nov 2026: all 9 checks pass, and Lighthouse scores 100 in every category on mobile and desktop.
 
 ## Docs
 

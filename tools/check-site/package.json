@@ -1,0 +1,15 @@
+{
+  "name": "check-site",
+  "private": true,
+  "description": "One command check for aihugh.org: HTML, accessibility, interaction, links and size budgets.",
+  "type": "module",
+  "scripts": {
+    "check": "node check.mjs",
+    "check:online": "node check.mjs --online"
+  },
+  "devDependencies": {
+    "axe-core": "4.14.1",
+    "html-validate": "9.7.1",
+    "playwright": "1.63.0"
+  }
+}
