@@ -1,0 +1,48 @@
+# Fails a pull request that changes a guarded path, unless its title starts with "NEEDS HUGH:".
+# Guarded paths are the public page and the guard files themselves (issue #8).
+name: guard
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+
+permissions:
+  contents: read
+
+jobs:
+  guarded-paths:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Check guarded paths
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          # --no-renames lists both sides of a rename; -z and quotepath=off keep unusual names intact.
+          git -c core.quotepath=off diff --name-only --no-renames -z "$BASE_SHA"..."$HEAD_SHA" > "$RUNNER_TEMP/changed"
+          guarded=""
+          echo "Changed files:"
+          while IFS= read -r -d '' f; do
+            echo "  $f"
+            case "$f" in
+              index.html|og.png|_redirects|.github/*|.claude/*) guarded="$guarded  $f"$'\n' ;;
+            esac
+          done < "$RUNNER_TEMP/changed"
+          if [ -z "$guarded" ]; then
+            echo "No guarded paths changed."
+            exit 0
+          fi
+          printf 'Guarded paths changed:\n%s' "$guarded"
+          case "$TITLE" in
+            "NEEDS HUGH:"*)
+              echo "Title starts with \"NEEDS HUGH:\", so this pull request is marked for Hugh. Pass."
+              exit 0 ;;
+          esac
+          echo "::error::This pull request changes guarded paths. Retitle it \"NEEDS HUGH: ...\" and leave it for Hugh to merge."
+          exit 1
