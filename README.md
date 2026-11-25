@@ -33,11 +33,16 @@ It exits 0 only when every check passes. Set `SITE_DIR` to check another copy of
 
 Baseline on 24 Nov 2026: all 9 checks pass, and Lighthouse scores 100 in every category on mobile and desktop.
 
+## Guards
+
+Changes to the public page and the guard files (`index.html`, `og.png`, `_redirects`, `.github/`, `.claude/`) are for Hugh to merge. A workflow fails any pull request that touches them unless it is titled "NEEDS HUGH: ...", the site check runs on every pull request, and a Claude Code hook blocks deploy, publish, migrate, push to main and force push commands. The workflows stop a merge only once branch protection on `main` requires them. Details and the ranked hardening list: [SECURITY](docs/SECURITY.md).
+
 ## Docs
 
 - [VISION](docs/VISION.md): where the site is going.
 - [STATE](docs/STATE.md): what is true now, newest first.
 - [PLAYBOOK](docs/PLAYBOOK.md): how agents work here, and what waits for Hugh.
 - [RESEARCH](docs/RESEARCH.md): dated findings with sources.
+- [SECURITY](docs/SECURITY.md): guarded paths and the hardening list.
 
 Wording employers read never merges without Hugh: it goes to a pull request titled "NEEDS HUGH: copy".

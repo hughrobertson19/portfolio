@@ -1,0 +1,32 @@
+# Runs the one command site check (tools/check-site) on every pull request and on pushes to main.
+name: check-site
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+      - name: Install
+        working-directory: tools/check-site
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Site check
+        working-directory: tools/check-site
+        run: npm run check
+      - name: Guard hook tests
+        run: node --test .claude/hooks/block-risky.test.mjs
