@@ -25,12 +25,12 @@ aihugh.org is the page employers open to check Hugh's work before or after an ap
 ## Next steps, smallest first
 
 1. Hugh reviews the copy refresh draft (PR #4). Drafted 24 Nov.
-2. Run `tools/check-site` on every push and every night with a GitHub Actions workflow (the check itself shipped 24 Nov, PR #6).
+2. Run `tools/check-site` on every pull request with a GitHub Actions workflow (drafted 25 Nov in PR #10, waiting for Hugh).
 3. After Hugh approves the copy: an exhibit per project (a screenshot or short walkthrough Hugh approves), since the code is private.
 4. A watch on aihugh.org itself once the fleet's network can reach it (today it cannot; see PLAYBOOK).
 
 ## Open questions
 
 - What do hiring managers for forward deployed and applied AI roles look for first on a portfolio page: shipped work with users, code, or write ups? (RESEARCH.md)
-- Should each project get its own page, or stay on one page? [VERIFY with Hugh]
+- Should each project get its own page, or stay on one page? Research (25 Nov) is thin and mixed: a summary on top for skimmers, and separate pages once three or more projects are finished and documented. Hugh decides. [VERIFY with Hugh]
 - Can the pilot venue be named on the site, or does it stay "a bar"? Career-Business STATE says it is an unnamed pilot with no results claimed, so the fleet never names it. [VERIFY with Hugh]

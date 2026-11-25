@@ -2,6 +2,18 @@
 
 Dated findings with sources, newest first. Tags: [Certain] (read in a primary source), [Likely] (consistent across sources, not primary), [Guessing] (inference).
 
+## 2026-11-25: One page, or a page per project?
+
+Question from VISION.md open questions. Two of three sources loaded, about 10 minutes.
+
+- **For engineering portfolios there is little data.** The only engineering source found is a vendor blog: a one page portfolio "makes a depth claim", a multi project site "makes a range claim", and with "three or more projects that are each finished, documented" a multi project layout "usually serves you better". Its reading times (two to three minutes on one story, 15 to 30 seconds per project title) cite no study. [Guessing: vendor blog selling portfolio sites, 27 Jun 2026] https://slategit.com/blog/one-pager-vs-multi-project-developer-portfolio
+- **Reviewers skim, so the summary goes first.** A survey of 100+ design reviewers: "80% of recruiters say they spend 3 minutes or less" on a portfolio, while most design managers spend 5 to 10 minutes. Its advice: "have the summary at the top for the recruiter and then to link off to the full case study" for the manager. [Likely for design roles; Guessing that it carries over to forward deployed roles; undated, about 2020] https://uxdesign.cc/ever-wonder-how-recruiters-look-at-your-design-portfolio-cc8dd1ecb698
+- A Blind thread on whether managers read long case studies did not load.
+
+**What it means here.** Hugh now has five pieces of work for the page (Shayke evaluation, SwipeBy, and the three in PR #4). The sources differ: the survey favours a short summary on top for a reader who skims, and the vendor blog favours separate pages once three or more projects are finished and documented. A middle path is one page of short summaries that scans in under three minutes, linking to a fuller page per project once that page exists [Guessing]. PR #4's short write ups fit the first half. The choice stays Hugh's (VISION.md).
+
+**PLAYBOOK change:** none; the finding is not clear enough.
+
 ## 2026-11-24: What do hiring managers for forward deployed and applied AI roles look for first in a portfolio?
 
 Question from VISION.md open questions. Three sources read, about 15 minutes.
