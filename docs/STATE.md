@@ -2,6 +2,15 @@
 
 What is true now. Newest entry first. Every claim traces to code, a check run tonight, GitHub, or the Career-Business STATE; otherwise it says [VERIFY].
 
+## 2026-11-25 (fleet portfolio, night run)
+
+- **Maintained (merged with this entry).** Site check 9 of 9 on main, also with `--online` (all four external links open). Patch update: html-validate 9.7.1 to 9.7.2, 9 of 9 after. Playwright 1.63 to 1.65 is a minor update but needs a browser build this sandbox cannot install, so it stays at 1.63 [VERIFY on a machine with `npx playwright install`]. `npm audit`: 3 moderate findings in html-validate's glob and minimatch; the fix is html-validate 11, a major upgrade, so it is not applied (issue #12). Secret search over every commit on every branch at the start of the run (23): nothing found. Folded issue #9 (milestone confirmed by Hugh) into a new docs/ROADMAP.md and closed it.
+- **PR #4 still good.** It merges cleanly with today's main and passes 9 of 9. Still waiting for Hugh's review session (Tasks row 560, due 30 Nov).
+- **Built 1, PR #10, not merged (NEEDS HUGH: guard files, issue #8).** A Claude Code hook that refuses deploy, publish, migrate, push to main, force push and merge commands (53 tests); deny rules in `.claude/settings.json`; a `guard` workflow that fails any pull request touching the page or the guard files unless titled "NEEDS HUGH:"; the site check on every pull request; docs/SECURITY.md with a ranked hardening list. Dry run on test PR #11: the guard failed with a plain title and passed after the retitle; the site check passed on GitHub Actions for the first time. The reviewer failed round 1 (a rename or a non ASCII file name slipped past the guard; `git -C` and quoted `main` slipped past the hook) and passed round 2. Not merged because it touches `.github/` and `.claude/`. Story: "I gave the night agents guard rails: a check that stops any change to the public page unless it is marked for me, and a hook that refuses deploys and pushes to main, tested both ways on a dummy pull request."
+- **Built 2: none.** No approved-tonight issue left (issue #1 is delivered as PR #4) and no `planned` issues in the milestone.
+- **Learned.** Little hard data on one page versus per project pages for engineering portfolios; the one survey (design roles) says recruiters spend 3 minutes or less and suggests a summary on top with links to fuller write ups (RESEARCH.md). No PLAYBOOK change.
+- **Waiting on Hugh.** (1) Review PR #4 (row 560, due 30 Nov). (2) Review and merge PR #10, then turn on branch protection for `main` requiring the `guard` and `check-site` checks (SECURITY.md item 1); until then the checks only report. (3) Branch `fleet/2026-11-25-guard-dryrun` (closed PR #11) can be deleted; the fleet only deletes branches it merged. (4) This run again had no direct GitHub access (the sandbox proxy refused api.github.com for this repo); everything went through the Composio connector.
+
 ## 2026-11-24 (fleet portfolio, night run)
 
 - **Maintained (merged, PR #3).** Created the four docs (VISION, STATE, PLAYBOOK, RESEARCH) and a README from the repo and the Career-Business STATE (Project rules, External-claim guardrails, Changelog). Folded issue #2 (Hugh's UX and game design strength) into VISION and closed it. No dependencies, so nothing to update. Secret search over the full history (three files: `index.html`, `og.png`, `.gitignore`): nothing found.
@@ -17,4 +26,5 @@ What is true now. Newest entry first. Every claim traces to code, a check run to
 - One static page (`index.html`, about 19 KB) and `og.png`, deployed by Cloudflare Pages from `main` (check run "Cloudflare Pages" on each commit; branches get preview links).
 - `tools/check-site` is the site check: `npm run check` in that folder.
 - The page shows the Shayke evaluation story, SwipeBy, and background. The three newer projects are drafted in PR #4, not live.
+- Current milestone: docs/ROADMAP.md (confirmed 24 Nov, target Fri 4 Dec). Guard files wait in PR #10; docs/SECURITY.md lands with it.
 - The fleet reaches GitHub through the Composio connector only; it cannot open aihugh.org directly, so the home page check after a deploy uses the web fetch tool.
