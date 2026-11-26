@@ -44,5 +44,8 @@ Changes to the public page and the guard files (`index.html`, `og.png`, `_redire
 - [PLAYBOOK](docs/PLAYBOOK.md): how agents work here, and what waits for Hugh.
 - [RESEARCH](docs/RESEARCH.md): dated findings with sources.
 - [SECURITY](docs/SECURITY.md): guarded paths and the hardening list.
+- [ROADMAP](docs/ROADMAP.md): the current milestone and backlog.
+- [decisions](docs/decisions/): accepted decisions, one rule per record.
+- [CLAUDE.md](CLAUDE.md): the short entry point for agents working in this repo.
 
 Wording employers read never merges without Hugh: it goes to a pull request titled "NEEDS HUGH: copy".
