@@ -2,6 +2,19 @@
 
 Dated findings with sources, newest first. Tags: [Certain] (read in a primary source), [Likely] (consistent across sources, not primary), [Guessing] (inference).
 
+## 2026-11-26: What exhibit works when the code is private?
+
+Question from VISION.md next steps ("an exhibit per project ... since the code is private"). Five sources (one read through a summary), about 15 minutes. None cites a study or outcome data.
+
+- **A written account beats screenshots for work you cannot show.** A recruitment firm's guide favours describing the problem, the method, the stack and how it was tested over product screenshots for confidential engineering work. [Likely: recruiter guide, 2026; read through a summary, not quoted] https://www.randstad.com.au/career-advice/career-tips/how-to-showcase-engineering-project-works-under-nda/
+- **Interviewers expect limits and probe the reasoning.** Developers interviewed by an editorial site say hiring managers "are rarely expecting a production org walkthrough" and that "the artifact proves nothing" on its own; explaining trade offs and constraints is what counts. [Likely: editorial, Salesforce developers, undated] https://www.salesforceben.com/salesforce-developers-cant-show-their-best-work-so-how-do-they-get-hired/
+- **A short demo, if any.** One vendor says "Length: 60 to 120 seconds" and "Three minutes is the hard ceiling", paired with a written breakdown. Another says project videos "should be 60-90 seconds each", but that for highly technical roles a talking video "isn't going to impress anyone": show dashboards, code samples and documentation instead. [Guessing: two vendor blogs, Jul and Jan 2026, no data] https://slategit.com/blog/video-walkthroughs-for-portfolio-projects and https://eportfolio-c0z.pages.dev/blog/2026-01-23-video-portfolios-when-they-work-and-when-they-dont
+- **Reviewers rarely run anything.** "They rarely clone and run anything"; "Visual proof that it runs beats any paragraph." [Guessing: practitioner post, undated, about public repos] https://dev.to/pickuma/how-to-build-a-portfolio-project-that-survives-a-2026-recruiter-screen-49kp
+
+**What it means here.** For the three private projects, the cheapest strong exhibit is the write up itself (problem, one decision and its trade off, how it was tested), which PR #4 already drafts, plus one screenshot of the thing running, cleared by Hugh for client and guest data [Guessing]. A narrated demo of 60 to 120 seconds is optional and lower value for engineer titled roles [Guessing]. Any screenshot or video goes through Hugh (PLAYBOOK project write up format, "Exhibit"; VISION next step 3; decision 0007).
+
+**PLAYBOOK change:** none; the sources disagree on video and none has data.
+
 ## 2026-11-25: One page, or a page per project?
 
 Question from VISION.md open questions. Two of three sources loaded, about 10 minutes.

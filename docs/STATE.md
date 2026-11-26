@@ -2,6 +2,16 @@
 
 What is true now. Newest entry first. Every claim traces to code, a check run tonight, GitHub, or the Career-Business STATE; otherwise it says [VERIFY].
 
+## 2026-11-26 (fleet portfolio, night run)
+
+- **Maintained.** Site check 9 of 9 on main, also with `--online` (all four external links open). Guard hook tests 53 of 53. Secret search over all 30 commits on every branch: nothing found. No `docs-update` issues to fold. No patch or minor updates to apply: axe-core is current; Playwright 1.63 to 1.65 still needs a browser build this sandbox cannot install, so it stays [VERIFY on a machine with `npx playwright install`].
+- **Built 1, PR #17, merged (issue #12, closed).** html-validate 9.7.2 to 11.22.1 in `tools/check-site`. `npm audit` went from 3 moderate findings to 0. 9 of 9 on main and on PR #4's copy of the page; a copy with misnested tags still fails the HTML check. html-validate 11 needs Node 22.22 or later on the 22 line (CI uses the latest 22). Reviewer PASS first round. Story: "The tool that checks every change had three known advisories, so I upgraded it a major version and proved it still catches a broken page before trusting it."
+- **Built 2, PR #18, merged (issue #14).** Root `CLAUDE.md` (44 lines) and decision records 0004 to 0012: copy needs Hugh, claims trace to sources, Shayke wording, public material only, former employers, one static page, deploy window, public text style, and what the fleet builds. PLAYBOOK Every night step 5 now matches 0012 (build against the issue's own criteria, not the fleet's own); changed to match Hugh's fleet rule, not a research finding. Reviewer FAIL round 1 (0012 contradicted 0001 on guarded items; some Why lines had no source), PASS round 2. Story: "I turned rules scattered across chats and docs into one short record each, with a source for every line, so any agent starts from the same rules."
+- **Deployed.** Both merges went live through Cloudflare Pages at 1:50 and 1:53am Chicago time (Cloudflare Pages check "Deploy successful" on 6486149 and 113bc12). aihugh.org returns 200 with the right title; `/docs/STATE.md` still serves the home page, so repo docs stay off the site.
+- **Not built tonight: issue #15** (status line, NEEDS HUGH: copy). It is the third oldest `approved-tonight` issue and the fleet builds two a night, oldest first. It is next.
+- **Learned.** No study shows which exhibit works best when the code is private; recruiter and editorial sources favour a written account of the problem, decisions and trade offs, one vendor page suggests a 60 to 120 second narrated demo, and another says a talking video adds little for technical roles (RESEARCH.md). No PLAYBOOK change.
+- **Waiting on Hugh.** (1) Review PR #4 (Tasks row 560, due 30 Nov). (2) Branch protection on `main` requiring `guard` and `check-site` (SECURITY.md item 1). (3) Two [VERIFY] points in the new records: where private ops notes live (0007) and the reason for the deploy window (0010). (4) This run again had no direct GitHub access for this repo; everything went through the Composio connector. To fix, ask Claude in a new chat to add the repos the fleet needs and recreate the scheduled task there.
+
 ## 2026-11-25 (fleet portfolio, night run)
 
 - **Maintained (merged with this entry).** Site check 9 of 9 on main, also with `--online` (all four external links open). Patch update: html-validate 9.7.1 to 9.7.2, 9 of 9 after. Playwright 1.63 to 1.65 is a minor update but needs a browser build this sandbox cannot install, so it stays at 1.63 [VERIFY on a machine with `npx playwright install`]. `npm audit`: 3 moderate findings in html-validate's glob and minimatch; the fix is html-validate 11, a major upgrade, so it is not applied (issue #12). Secret search over every commit on every branch at the start of the run (23): nothing found. Folded issue #9 (milestone confirmed by Hugh) into a new docs/ROADMAP.md and closed it.
@@ -24,7 +34,8 @@ What is true now. Newest entry first. Every claim traces to code, a check run to
 ## Current facts
 
 - One static page (`index.html`, about 19 KB) and `og.png`, deployed by Cloudflare Pages from `main` (check run "Cloudflare Pages" on each commit; branches get preview links).
-- `tools/check-site` is the site check: `npm run check` in that folder.
+- `tools/check-site` is the site check: `npm run check` in that folder (html-validate 11, `npm audit` clean on 26 Nov).
 - The page shows the Shayke evaluation story, SwipeBy, and background. The three newer projects are drafted in PR #4, not live.
-- Current milestone: docs/ROADMAP.md (confirmed 24 Nov, target Fri 4 Dec). Guard files wait in PR #10; docs/SECURITY.md lands with it.
+- Current milestone: docs/ROADMAP.md (confirmed 24 Nov, target Fri 4 Dec). Guard files and docs/SECURITY.md are on main (PR #10, merged by Hugh 25 Nov).
+- Rules for agents: `CLAUDE.md` at the root and docs/decisions/ (0001 to 0012).
 - The fleet reaches GitHub through the Composio connector only; it cannot open aihugh.org directly, so the home page check after a deploy uses the web fetch tool.
