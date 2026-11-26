@@ -14,7 +14,7 @@ How agents work in this repo. Short, and changed only when a finding is clear (s
 2. Fold open `docs-update` issues into the right doc, then close each with a one line comment.
 3. Run the site check (see README) and fix anything it finds: HTML errors, axe accessibility violations at 390 and 1280 px in light and dark, broken links, Lighthouse below 90.
 4. Secret check: search the tree and new commits for keys and tokens. If one is found, stop, push nothing, open "SECURITY: secret found" with the file path only.
-5. Up to two builds, each planned first in a `fleet-build` issue with acceptance criteria, on a branch `fleet/<date>-<slug>`.
+5. Up to two builds, built against each issue's own acceptance criteria (never the fleet's own), on a branch `fleet/<date>-<slug>`. Which issues: [decisions/0012](decisions/0012-what-the-fleet-builds.md).
 6. A fresh reviewer (one that did not write the code) answers PASS or FAIL against the criteria, the checks and the guards.
 
 ## What merges and what waits for Hugh
