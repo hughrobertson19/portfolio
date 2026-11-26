@@ -23,7 +23,7 @@ npm run check                     # or npm run check:online to also fetch extern
 
 It checks the page in this repo, never the live site, and prints one PASS or FAIL line per check:
 
-1. HTML: html-validate, recommended rules, with `no-redundant-role` off (`role="list"` on the styled list is deliberate, because Safari drops list semantics when `list-style` is none).
+1. HTML: html-validate 11 (upgraded from 9 on 26 Nov 2026, issue #12, to clear three moderate `npm audit` findings in its glob and minimatch dependencies; needs Node 22.22 or later on the 22 line, or 24.8 or later), recommended rules, with `no-redundant-role` off (`role="list"` on the styled list is deliberate, because Safari drops list semantics when `list-style` is none).
 2. Size: `index.html` under 40 KB, `og.png` under 100 KB and 1200 x 630.
 3. Accessibility: axe-core (WCAG 2.2 AA and best practice) at 390 and 1280 px, light and dark, plus no horizontal scroll and no console errors.
 4. Interaction: every diagram button updates its pressed state and the detail panel, and colour contrast holds in every state.
