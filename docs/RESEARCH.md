@@ -13,7 +13,7 @@ Question from PLAYBOOK "The site" (the `_redirects` note was tagged [Likely; che
 
 **What it means here.** Two fixes, both Hugh's: (1) the quick one, issue #20 widened to add `_redirects` rules for `/CLAUDE.md`, `/.gitignore`, `/.github/*` and `/.claude/*`, plus a check that every tracked top level path is covered; (2) the lasting one, move the page files into one folder (for example `site/`) and set that as the build output directory in the Cloudflare Pages project, so only the page is published whatever the repo grows to [Likely]. Option 2 changes a Cloudflare setting and guarded paths, so it is a proposal for Hugh, never a fleet build.
 
-**PLAYBOOK change:** "The site" now records which paths are served (checked tonight) and that a redirect beats a file; the after deploy check now includes the repo file paths.
+**PLAYBOOK change:** "The site" now records which paths are served (checked tonight), that a redirect beats a file, and an after deploy check (home page 200 with the right title, `/docs/STATE.md` 302 to `/`). "Access notes" records two working facts from tonight's run, not from research: the Composio workbench reached aihugh.org and the Cloudflare preview (Python `requests`, and Debian `chromium` driven by Playwright for the PR #26 screenshots) while this shell could not; and screenshots went on a separate branch so the PR #26 diff stayed one line.
 
 ## 2026-11-26 (folded 27 Nov from issue #24): The page gives employers no LinkedIn or resume link
 
