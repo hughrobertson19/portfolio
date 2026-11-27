@@ -6,7 +6,8 @@ How agents work in this repo. Short, and changed only when a finding is clear (s
 
 - One static page: `index.html` with inline CSS and JS, plus `og.png` (link preview, 1200 x 630). No build step, no framework, no third party scripts.
 - **Deploy:** Cloudflare Pages Git integration. A push to `main` deploys aihugh.org; every other branch gets a preview deployment, linked from the "Cloudflare Pages" check on the commit (seen on commit 924e382). Deploy only between 11:00pm and 6:00am Chicago time, then check the home page loads.
-- `_redirects` sends `/docs/*`, `/README.md` and `/tools/*` back to the home page, so repo files do not show up as pages on aihugh.org. [Likely; check after each deploy]
+- `_redirects` sends `/docs/*`, `/README.md` and `/tools/*` back to the home page, and a redirect wins over a file at the same path (Cloudflare docs, RESEARCH.md 27 Nov). Every other file in the repo is served: on 27 Nov `/CLAUDE.md`, `/.gitignore`, `/.github/*` and `/.claude/*` returned the raw file (issue #20). A new top level file or folder needs a `_redirects` rule (a guarded change) or it goes live.
+- **After every deploy:** the home page returns 200 with the right title, and `/docs/STATE.md` returns 302 to `/`. The fleet's shell cannot reach aihugh.org, but the Composio workbench can (Python `requests`), as can the web fetch tool.
 
 ## Every night
 
@@ -34,5 +35,6 @@ How agents work in this repo. Short, and changed only when a finding is clear (s
 ## Access notes
 
 - The fleet's scheduled task has no direct git push for this repo; GitHub work goes through the Composio GitHub connector (issues, branches, commits, pull requests, merges). Never force push.
-- The fleet's network cannot open aihugh.org directly; the home page check after a deploy uses the web fetch tool.
+- The fleet's shell cannot open aihugh.org or Cloudflare preview links; the Composio workbench can (27 Nov), so use it for the after deploy check and for screenshots (install `chromium` with apt, then Playwright with `executable_path="/usr/bin/chromium"`, run as a script, not inside the notebook loop).
+- Screenshots for a NEEDS HUGH pull request go on a separate branch `fleet/<date>-<slug>-screens`, linked from the pull request body by raw URL, so the pull request diff stays clean.
 - axe can report a false contrast failure if it runs during a 0.15 s colour transition; wait 600 ms after a click before checking.
