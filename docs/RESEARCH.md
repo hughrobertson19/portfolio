@@ -2,6 +2,30 @@
 
 Dated findings with sources, newest first. Tags: [Certain] (read in a primary source), [Likely] (consistent across sources, not primary), [Guessing] (inference).
 
+## 2026-11-27: How do we keep repo files off aihugh.org on Cloudflare Pages?
+
+Question from PLAYBOOK "The site" (the `_redirects` note was tagged [Likely; check after each deploy]) and issue #20. Four sources, about 15 minutes, plus a direct check of the live site.
+
+- **Repo files outside the `_redirects` rules are served today.** On 27 Nov 2026 at about 2:10am CT, `https://aihugh.org/CLAUDE.md`, `/.gitignore`, `/.github/workflows/check-site.yml` and `/.claude/settings.json` all returned 200 with the raw file; `/docs/STATE.md` and `/tools/check-site/package.json` returned 302 to the home page. [Certain: fetched tonight] The repo is public, so nothing secret is exposed, but agent files sit on the domain employers open.
+- **A redirect wins over a file at the same path.** Cloudflare's docs: "Redirects are always followed, regardless of whether or not an asset matches the incoming request." Limits are 2,000 static and 100 dynamic rules; allowed codes are 301, 302, 303, 307, 308 and 200 proxying, default 302; one splat per rule. [Certain: Cloudflare docs] https://developers.cloudflare.com/pages/configuration/redirects/
+- **Pages publishes the build output directory, and there is no ignore file.** With no framework the build command is left blank; the build output directory is "where your application's content lives", and it can be a subfolder. The official pages read list no `.cfignore` or exclude list. [Likely: Cloudflare docs; the subfolder point is inferred from the presets] https://developers.cloudflare.com/pages/configuration/build-configuration/ and https://developers.cloudflare.com/pages/framework-guides/deploy-anything
+- **One practitioner found a deployed `.claude/settings.json` stayed reachable, and says removed files can stay reachable for up to a week.** [Guessing: personal blog, Dec 2025, not checked against Cloudflare's docs] https://jmasson-net.pages.dev/posts/2025-12-excluding-files-from-cloudflare-pages
+
+**What it means here.** Two fixes, both Hugh's: (1) the quick one, issue #20 widened to add `_redirects` rules for `/CLAUDE.md`, `/.gitignore`, `/.github/*` and `/.claude/*`, plus a check that every tracked top level path is covered; (2) the lasting one, move the page files into one folder (for example `site/`) and set that as the build output directory in the Cloudflare Pages project, so only the page is published whatever the repo grows to [Likely]. Option 2 changes a Cloudflare setting and guarded paths, so it is a proposal for Hugh, never a fleet build.
+
+**PLAYBOOK change:** "The site" now records which paths are served (checked tonight), that a redirect beats a file, and an after deploy check (home page 200 with the right title, `/docs/STATE.md` 302 to `/`). "Access notes" records two working facts from tonight's run, not from research: the Composio workbench reached aihugh.org and the Cloudflare preview (Python `requests`, and Debian `chromium` driven by Playwright for the PR #26 screenshots) while this shell could not; and screenshots went on a separate branch so the PR #26 diff stayed one line.
+
+## 2026-11-26 (folded 27 Nov from issue #24): The page gives employers no LinkedIn or resume link
+
+Filed by the night shift as research only. The live page and the PR #4 draft both end with only an email link and a GitHub link [Certain: index.html on main, read 27 Nov].
+
+- 64% of employers say they have viewed a job seeker's professional network profile (such as LinkedIn) before hiring. Robert Walters, 14 Dec 2022; sample size not stated. [Likely] https://www.robertwalters.co.uk/insights/career-advice/blog/64-percent-of-employers-view-candidate-professional-social-network-profiles-before-hiring.html
+- "86% of employers will visit your portfolio website if you include the link", and the portfolio, resume and LinkedIn should point at each other. Attributed to FlexJobs with no date, on an affiliate page (Feb 2026). [Guessing] https://blog.theinterviewguys.com/do-you-need-a-portfolio-website/
+
+**What it means here.** A LinkedIn link and a resume link next to email and GitHub is public wording, so it goes through a "NEEDS HUGH: copy" pull request, ideally in the PR #4 review (proposal issue #25). A resume linked from a public page should carry no phone number or home address [Guessing]. The LinkedIn URL and which resume file are not in any doc read [VERIFY with Hugh].
+
+**PLAYBOOK change:** none.
+
 ## 2026-11-26: What exhibit works when the code is private?
 
 Question from VISION.md next steps ("an exhibit per project ... since the code is private"). Five sources (one read through a summary), about 15 minutes. None cites a study or outcome data.

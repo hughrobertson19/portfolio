@@ -2,6 +2,16 @@
 
 What is true now. Newest entry first. Every claim traces to code, a check run tonight, GitHub, or the Career-Business STATE; otherwise it says [VERIFY].
 
+## 2026-11-27 (fleet portfolio, night run, Fri 1:37am to about 2:20am Chicago)
+
+- **Maintained (merged, PR #27).** Site check 9 of 9 on main, also with `--online` (all four external links open). Minor update html-validate 11.22.1 to 11.23.0: 9 of 9 after, a broken copy of the page still fails the HTML check, `npm audit` 0. Reviewer PASS. Deployed by Cloudflare Pages at 2:07am CT; aihugh.org returns 200 with the right title and `/docs/STATE.md` still redirects home. Playwright 1.63 to 1.65 still waits for a machine that can run `npx playwright install` [VERIFY]. Secret search over all 37 commits on every branch at the start of the run: nothing found. Folded `docs-update` issue #24 (no LinkedIn or resume link on the page) into RESEARCH.md and closed it.
+- **Found: repo files are served on aihugh.org.** `/CLAUDE.md`, `/.gitignore`, `/.github/workflows/check-site.yml` and `/.claude/settings.json` return the raw file (checked 2:10am CT); the rest of those two folders likely too [Likely]. The repo is public, so nothing secret is exposed, but agent files sit on the domain employers open. Recorded on issue #20, which covers only `/CLAUDE.md` today; widening it is a Planner and Hugh call. Not fixed tonight: `_redirects` is guarded and #15 was tonight's one guarded item.
+- **Built 1, PR #26, not merged (NEEDS HUGH: copy, issue #15).** One line in the claims list: "The agent fleet is paused. The nightly evaluator and a few scheduled jobs still run on one machine." becomes "Shayke's agent fleet is paused. Since 24 Nov 2026, a nightly coding agent checks and maintains this page, and every wording change waits for my review." Every fact sourced in the PR; three questions for Hugh (is Shayke's fleet still paused, keep the evaluator sentence, name Claude Code or not). 9 of 9, the `guarded-paths` and `check` workflow jobs and Cloudflare Pages all "success" on head 228396d, merges cleanly with PR #4, preview link and before and after screenshots at 390 and 1280 in the PR (images on branch `fleet/2026-11-27-pr15-screens`). Reviewer FAIL round 1 ("Claude Code" had no repo source; a private quote did not support the claim; check output not raw), PASS round 2. Story: "A stale status line undercut every true claim on the page, so I rewrote it from sources a stranger can check in the public repo, and left the wording for me to approve."
+- **Built 2: none.** No `approved-tonight` issue left (#1 is PR #4, #15 is PR #26). The two `planned` issues in the milestone (#16 lockfile, #20 redirect) both touch guarded paths, and R1 allows one guarded item a night.
+- **Not merged: Planner PR #21** (docs/ROADMAP.md only). The merge call was refused by this session's permission check, so it waits for Hugh or the next run.
+- **Learned.** A Cloudflare Pages redirect wins over a file at the same path, and Pages has no ignore file: the lasting fix is a `site/` folder set as the build output directory, a Cloudflare setting only Hugh changes (RESEARCH.md). PLAYBOOK "The site" and "Access notes" updated with what is served and how to check it.
+- **Waiting on Hugh.** (1) PR #26: the three questions, then merge or say no. (2) PR #4 review session (Tasks row 560, due Mon 30 Nov), ideally with proposal #25 (LinkedIn and resume links). (3) Issue #20: widen it to `.github/`, `.claude/` and `.gitignore`, or move the page into a `site/` folder and set it as the Cloudflare build output directory. (4) Merge Planner PR #21. (5) Branch protection on `main` (SECURITY.md item 1). (6) Branch `fleet/2026-11-27-pr15-screens` can be deleted once PR #26 is decided.
+
 ## 2026-11-26 (fleet portfolio, night run)
 
 - **Maintained.** Site check 9 of 9 on main, also with `--online` (all four external links open). Guard hook tests 53 of 53. Secret search over all 30 commits on every branch: nothing found. No `docs-update` issues to fold. No patch or minor updates to apply: axe-core is current; Playwright 1.63 to 1.65 still needs a browser build this sandbox cannot install, so it stays [VERIFY on a machine with `npx playwright install`].
@@ -34,8 +44,9 @@ What is true now. Newest entry first. Every claim traces to code, a check run to
 ## Current facts
 
 - One static page (`index.html`, about 19 KB) and `og.png`, deployed by Cloudflare Pages from `main` (check run "Cloudflare Pages" on each commit; branches get preview links).
-- `tools/check-site` is the site check: `npm run check` in that folder (html-validate 11, `npm audit` clean on 26 Nov).
-- The page shows the Shayke evaluation story, SwipeBy, and background. The three newer projects are drafted in PR #4, not live.
+- `tools/check-site` is the site check: `npm run check` in that folder (html-validate 11.23, `npm audit` clean on 27 Nov).
+- The page shows the Shayke evaluation story, SwipeBy, and background. The three newer projects are drafted in PR #4, the status line fix in PR #26; neither is live.
+- Besides the page, aihugh.org serves `/CLAUDE.md`, `/.gitignore` and files under `.github/` and `.claude/` as raw files (four paths checked 27 Nov; issue #20).
 - Current milestone: docs/ROADMAP.md (confirmed 24 Nov, target Fri 4 Dec). Guard files and docs/SECURITY.md are on main (PR #10, merged by Hugh 25 Nov).
 - Rules for agents: `CLAUDE.md` at the root and docs/decisions/ (0001 to 0012).
-- The fleet reaches GitHub through the Composio connector only; it cannot open aihugh.org directly, so the home page check after a deploy uses the web fetch tool.
+- The fleet reaches GitHub through the Composio connector only. Its shell cannot open aihugh.org; the Composio workbench can, and does the home page check after a deploy.
