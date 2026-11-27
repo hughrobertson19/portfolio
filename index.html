@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%230A5EA8%27/%3E%3Cpath d=%27M16 5v22%27 stroke=%27%23fff%27 stroke-width=%273%27 stroke-dasharray=%274 3%27/%3E%3C/svg%3E">
 <link rel="canonical" href="https://aihugh.org/">
-<meta name="description" content="Hugh Robertson. Sold and onboarded every SwipeBy customer, now builds and tests AI systems. Looking for solutions engineer and deployment roles in Chicago or remote.">
+<meta name="description" content="Hugh Robertson. Sold and onboarded every SwipeBy customer, now builds and tests AI systems. Looking for forward deployed, deployment, applied AI, solutions and implementation roles in Chicago or remote.">
 <style>
 /* Layout: one column, 760px measure. Boldness lives in the wall diagram; everything else stays quiet. */
 :root{
@@ -122,6 +122,14 @@ code{font:.88em var(--mono);background:var(--accent-soft);padding:1px 6px;border
 .role ul{margin:4px 0 0;padding-left:1.1em;display:flex;flex-direction:column;gap:6px}
 .bg{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;color:var(--muted)}
 .bg b{color:var(--ink);font-weight:600}
+/* projects */
+.projects{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px}
+.proj{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.proj h3{margin:0;font-size:1.1rem;line-height:1.3}
+.proj .meta{font:600 .74rem/1.4 var(--mono);letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
+.proj dl{margin:0;display:grid;grid-template-columns:120px minmax(0,1fr);gap:8px 16px}
+.proj dt{font:600 .74rem/1.6 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--accent)}
+.proj dd{margin:0}
 footer{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--line);padding-top:20px;font-size:.95rem}
 
 @media (max-width:720px){
@@ -130,6 +138,8 @@ footer{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--lin
   .step{grid-template-columns:1fr}
   .roles{grid-template-columns:1fr}
   .claims li{grid-template-columns:1fr}
+  .proj dl{grid-template-columns:1fr;gap:2px}
+  .proj dd{margin-bottom:8px}
 }
 @media (prefers-reduced-motion:no-preference){
   .part,.step,.brick,.gapbtn{transition:background-color .15s,border-color .15s}
@@ -142,7 +152,8 @@ footer{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--lin
 <header class="top">
   <b>Hugh Robertson</b>
   <p class="pitch">I sold and onboarded every SwipeBy customer myself. Now I build AI systems and the tests that check them.</p>
-  <p class="seek">Looking for solutions engineer, customer engineer, deployment strategist, go-to-market engineer, and applied AI engineer roles in Chicago or remote.</p>
+  <p class="seek">Looking for forward deployed engineer, deployment strategist, applied AI engineer, solutions or customer engineer, and implementation lead roles in Chicago or remote.</p>
+  <p class="seek"><a href="#builds">See what I built this fall</a></p>
 </header>
 
 <main>
@@ -227,6 +238,44 @@ footer{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--lin
   </ul>
 </section>
 
+<section class="sec" id="builds" aria-labelledby="h-builds">
+  <h2 id="h-builds">What I built this fall</h2>
+  <p>Three systems, each built for a real user. My strength is designing the experience, and adding a light game layer on top of what people already do, like the staff leaderboard below. I design each system and direct AI coding agents (Claude Code) that write the code. Each one has its own automated tests. The code is private, so each write up says what it does.</p>
+  <ul class="projects">
+    <li class="proj">
+      <h3>Guest page pilot, Workwalk AI</h3>
+      <span class="meta">For a bar owner and front of house staff &middot; Live as a pilot</span>
+      <dl>
+        <dt>Problem</dt><dd>A bar wants more loyalty sign ups and reviews from its own guests, through its own staff, and the owner wants to see the numbers every week.</dd>
+        <dt>Built</dt><dd>One page per venue that a guest opens from a QR code: join the loyalty program, leave a review, or send the manager a private note. Every guest sees the same options in the same order, so happy and unhappy guests are never steered apart. It counts taps, never people: no IP logging, no fingerprinting, no lasting visitor ID. One codebase, with one settings file and one off switch per venue.</dd>
+        <dt>Game layer</dt><dd>Each front of house staff member has a QR card with their own code. Taps are counted per staff code, and a leaderboard in the venue&rsquo;s Google Sheet refreshes every 10 minutes.</dd>
+        <dt>Checks</dt><dd>A nightly check confirms the live page is up, its security headers are intact, and it matches what is in git byte for byte.</dd>
+        <dt>Result</dt><dd>Live at one bar as a reviews pilot. Loyalty sign up and the manager note are built but not switched on there yet. No results to report yet.</dd>
+      </dl>
+    </li>
+    <li class="proj">
+      <h3>Funding Radar</h3>
+      <span class="meta">For my own job search &middot; Live since November 2026</span>
+      <dl>
+        <dt>Problem</dt><dd>Early AI startups raise money before they post jobs. I wanted to find them first and meet the founders with something built for them.</dd>
+        <dt>Built</dt><dd>A daily job that reads new raises from SEC Form D filings, funding news and Y Combinator, removes duplicates, scores each company&rsquo;s fit with Claude Haiku, and drafts a short note to the founder in a Google Sheet. It never sends anything. A second command writes a one page brief on a company, with a source for every fact.</dd>
+        <dt>Decision</dt><dd>A fact counts only if the code finds its quote word for word on the source page. Anything else is marked as a guess. Spend caps are enforced in code before every model call.</dd>
+        <dt>Result</dt><dd>The first 7 day backfill found 26 unique leads for $1.15. When the schedule once skipped a day while showing green, the fix made each run catch up on missed days and log the gap, so a miss is visible.</dd>
+      </dl>
+    </li>
+    <li class="proj">
+      <h3>Chicago Swans club app</h3>
+      <span class="meta">For a Chicago sports club&rsquo;s players and committee &middot; Launching for the 2027 season</span>
+      <dl>
+        <dt>Problem</dt><dd>The club ran training polls, dues reminders and trip planning by hand in WhatsApp.</dd>
+        <dt>Built</dt><dd>A phone first web app: availability and one tap RSVP, fixtures, training, socials, dues, trips and announcements, with sign in by emailed code. Supabase (Postgres) with row level security. 130 screens and states built, 86 of them checked against their designs.</dd>
+        <dt>Checks</dt><dd>Every night: unit tests, a dependency audit, a secret scan of the full history, and probes that test the database&rsquo;s access rules on a throwaway database built from the same migrations.</dd>
+        <dt>Status</dt><dd>Deployed. The full club launch is planned for the 2027 season, where it should replace about 30 manual training polls a season.</dd>
+      </dl>
+    </li>
+  </ul>
+</section>
+
 <section class="sec" aria-labelledby="h-exp">
   <h2 id="h-exp">Selling, then building</h2>
   <div class="roles">
@@ -237,6 +286,13 @@ footer{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--lin
         <li>12 multi-unit deals and about $60K in annual recurring revenue (ARR) in my first three months, a company record, and a promotion at three months. I moved to Chicago to open the market here.</li>
         <li>Nobody asked me to, but I built a lead pipeline in Python with the Google Places API and a language model that loaded restaurants and wrote up their pain points, replacing manual CRM entry. AI wrote much of the code; I designed it, directed it and ran it. <a href="https://github.com/hughrobertson19/swipeby-pipeline">Code on GitHub</a>.</li>
         <li>I also built a shared AI assistant that put research on each location in reps' hands before a visit, and grounded it so every claim had to come from its knowledge base. My reps used it without being told to.</li>
+      </ul>
+    </div>
+    <div class="role">
+      <h3>Workwalk AI, AI Consultant (side practice)</h3>
+      <span class="when">August 2026 to present</span>
+      <ul>
+        <li>Building a guest page that brings bars and restaurants more loyalty sign ups and reviews through their own staff. Live as a pilot at one bar. See <a href="#builds">What I built this fall</a>.</li>
       </ul>
     </div>
     <div class="role">
