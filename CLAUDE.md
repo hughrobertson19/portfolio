@@ -18,7 +18,7 @@ aihugh.org: Hugh Robertson's one page portfolio, the page employers open to chec
 cd tools/check-site
 npm install
 npx playwright install chromium   # once per machine
-npm run check        # must end "All 9 checks passed."
+npm run check        # must end "All 10 checks passed."
 ```
 
 Paste the raw output into every pull request. `SITE_DIR=<folder>` checks another copy of the page.
@@ -35,7 +35,7 @@ Paste the raw output into every pull request. `SITE_DIR=<folder>` checks another
 - Copy: [0004](docs/decisions/0004-copy-needs-hugh.md). Claims: [0005](docs/decisions/0005-claims-trace-to-sources.md), [0006](docs/decisions/0006-shayke-wording.md), [0008](docs/decisions/0008-former-employers.md).
 - Public material only: [0007](docs/decisions/0007-public-material-only.md). Site shape: [0009](docs/decisions/0009-one-static-page.md). Deploy window: [0010](docs/decisions/0010-deploy-window.md). Style: [0011](docs/decisions/0011-public-text-style.md).
 
-A fix that changes nothing a visitor sees merges only when the site check passes 9 of 9, a separate reviewer says PASS and no guard applies.
+A fix that changes nothing a visitor sees merges only when the site check passes 10 of 10, a separate reviewer says PASS and no guard applies.
 
 ## Never
 
