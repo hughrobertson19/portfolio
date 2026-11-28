@@ -29,12 +29,13 @@ How agents work in this repo. Short, and changed only when a finding is clear (s
 - Only facts in a named source: the docs of the source repo, the Career-Business STATE (Project rules, External-claim guardrails, Changelog), or this repo's code. Otherwise [VERIFY].
 - Keep "learned" and "built" apart. Shayke is "an applied learning project" with no customers. Never "Founder".
 - No private repo details or links, client data, client staff names, guest data, venue names Hugh has not cleared, or criticism of any former employer.
-- **Project write up format** (24 Nov 2026, RESEARCH.md): Problem; For whom; What was built; One decision and its trade off; Result on record, or the plain status if there is none; Exhibit (a public link, or a screenshot or walkthrough Hugh approves). Lead with who it was for and what changed for them. Keep each one short.
+- **Project write up format** (24 Nov 2026, RESEARCH.md; "How it was tested" added 28 Nov): Problem; For whom; What was built; One decision and its trade off; How it was tested (an eval, a baseline or a pilot check, only if on record); Result on record, or the plain status if there is none; Exhibit (a public link, or a screenshot or walkthrough Hugh approves). Lead with who it was for and what changed for them. Keep each one short.
 - Public text: US English, no em or en dashes, no hyphens as punctuation.
 
 ## Access notes
 
-- The fleet's scheduled task has no direct git push for this repo; GitHub work goes through the Composio GitHub connector (issues, branches, commits, pull requests, merges). Never force push.
+- The fleet's scheduled task has no direct git push for this repo; GitHub work goes through the Composio GitHub connector (issues, branches, commits, pull requests, merges). Never force push. The shell can `git clone` and `git fetch` this public repo (28 Nov), so build and test locally, commit through the connector, then compare `git hash-object` of each local file with the blob SHAs the commit returns.
+- The shell has Playwright 1.63 with Chromium preinstalled, so the site check runs here; a newer Playwright would need its own browser build, which this sandbox cannot download [Likely] (28 Nov).
 - The fleet's shell cannot open aihugh.org or Cloudflare preview links; the Composio workbench can (27 Nov), so use it for the after deploy check and for screenshots (install `chromium` with apt, then Playwright with `executable_path="/usr/bin/chromium"`, run as a script, not inside the notebook loop).
 - Screenshots for a NEEDS HUGH pull request go on a separate branch `fleet/<date>-<slug>-screens`, linked from the pull request body by raw URL, so the pull request diff stays clean.
 - axe can report a false contrast failure if it runs during a 0.15 s colour transition; wait 600 ms after a click before checking.
