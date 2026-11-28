@@ -70,11 +70,13 @@ function redirectRules() {
   return readFileSync(file, "utf8").split(/\r?\n/)
     .map((line) => line.replace(/#.*/, "").trim().split(/\s+/))
     .filter(([source, dest]) => source?.startsWith("/") && dest)
-    .filter(([, , code]) => (code || "302") !== "200") // a 200 rewrite still serves content
-    .map(([source]) => new RegExp("^" + source
-      .replace(/[.+?^${}()|[\]\\]/g, "\\$&")
-      .replace(/\*/g, ".*")
-      .replace(/:[A-Za-z]\w*/g, "[^/]+") + "$"));
+    .map(([source, , code]) => ({
+      code: code || "302",
+      re: new RegExp("^" + source
+        .replace(/[.+?^${}()|[\]\\]/g, "\\$&")
+        .replace(/\*/g, ".*")
+        .replace(/:[A-Za-z]\w*/g, "[^/]+") + "$"),
+    }));
 }
 function checkRepoFiles() {
   const rules = redirectRules();
@@ -82,12 +84,14 @@ function checkRepoFiles() {
   const covered = (f) => {
     const paths = ["/" + f];
     if (f.endsWith(".html")) paths.push("/" + f.slice(0, -5)); // Pages also serves /name for name.html
-    return paths.every((p) => rules.some((r) => r.test(p)));
+    if (f.endsWith("/index.html")) paths.push("/" + f.slice(0, -10)); // and /dir/ for dir/index.html
+    // Cloudflare applies the first rule that matches; a 200 rewrite still serves content.
+    return paths.every((p) => rules.find((r) => r.re.test(p))?.code.startsWith("3"));
   };
   const top = (fs) => [...new Set(fs.map((f) => f.split("/")[0]))].sort();
   const open = files.filter((f) => !covered(f));
   record(open.length === 0, "repo files", open.length
-    ? `served on the live site, no _redirects rule: ${top(open).map((t) => "/" + t).join(" ")} (${open.length} file${open.length === 1 ? "" : "s"})`
+    ? `served on the live site, not redirected by _redirects: ${top(open).map((t) => "/" + t).join(" ")} (${open.length} file${open.length === 1 ? "" : "s"})`
     : `${files.length} repo files outside the page, all caught by a _redirects rule: ${top(files).map((t) => "/" + t).join(" ")}`);
 }
 
