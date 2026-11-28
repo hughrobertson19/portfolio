@@ -2,6 +2,19 @@
 
 Dated findings with sources, newest first. Tags: [Certain] (read in a primary source), [Likely] (consistent across sources, not primary), [Guessing] (inference).
 
+## 2026-11-28: What do hiring managers for applied AI roles want to see about how the work was tested?
+
+Question from VISION.md open questions (what hiring managers look for first), narrowed to applied AI and LLM engineer roles, which the 24 Nov entry did not cover. Four sources, about 15 minutes; two authors say they hire, two are a blog and a vendor.
+
+- **Evals against a baseline are the core signal.** A practitioner who says he has spent six months "on the other side of the interview table, hiring AI engineers" wants candidates to "prove that you can ship a small AI product end to end, measure it against a real baseline", writes "Evals are the unit tests of AI engineering", and lists "No baseline" as a red flag. Framework names on a resume are "weak evidence now". [Likely: practitioner essay, Louis-François Bouchard, Mar 2026, updated Aug 2026] https://www.louisbouchard.ai/what-i-look-for-when-hiring-ai-engineers/
+- **Interviewers probe how the eval was built.** A guide co-written by an ML lead asks candidates "How did you collect the initial evaluation data and build the eval harness?" and says "having a basic understanding of evals is key for anyone building ML-powered products." [Likely: practitioner guide, Eugene Yan and Jason Liu, Jul 2024] https://eugeneyan.com/writing/how-to-interview/
+- **Failures and shipped systems beat credentials.** "Portfolio evidence beats credentials", and interviewers should "walk you through a project where the first approach failed." [Guessing: essay, author does not say he hires, Apr 2026] https://tianpan.co/blog/2026-04-16-hiring-llm-engineers-interview-what-to-test
+- **A portfolio alone is weak without follow up.** "A polished portfolio offers limited signal without follow-up"; "Shipped systems create confidence." [Guessing: hiring marketplace content, Aug 2026] https://underdog.io/blog/how-to-hire-ai-engineers
+
+**What it means here.** All four put shipped work ahead of credentials; the two authors who say they hire also name evals against a baseline. Hugh's page already leads with the Shayke evaluation story, which fits. Each project write up should say how the work was tested or measured (an eval, a baseline, a pilot check) when that is on record, and say plainly when it is not, rather than list tools [Likely]. Any such wording on the page still goes through a "NEEDS HUGH: copy" pull request.
+
+**PLAYBOOK change:** the project write up format gains "How it was tested (an eval, a baseline or a pilot check, only if on record)", because both practitioner sources who hire name evals against a baseline [Likely]; the other two back only "shipped over credentials". Nothing else in the format changes.
+
 ## 2026-11-27: How do we keep repo files off aihugh.org on Cloudflare Pages?
 
 Question from PLAYBOOK "The site" (the `_redirects` note was tagged [Likely; check after each deploy]) and issue #20. Four sources, about 15 minutes, plus a direct check of the live site.
