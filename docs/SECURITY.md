@@ -17,7 +17,7 @@ How this repo stops an unattended run from shipping a guarded change, and what t
 7. [x] **Secret search every night** (PLAYBOOK, Every night, step 4). A find stops the run: no push, an issue titled "SECURITY: secret found" with the file path only.
 8. [ ] **Dependabot alerts** are on (Career-Business STATE, 24 Nov 2026) [VERIFY in repo settings]. Version updates for `tools/check-site` could follow; patch and minor only merge, majors become issues.
 9. [ ] **Commit a lockfile for `tools/check-site`** so CI installs the exact tree that was checked. Today the three direct packages are pinned exactly but their dependencies are not.
-10. [ ] **This repo holds only public material** (milestone item 5). Private operations notes belong in a private repo [VERIFY with Hugh, decision due Mon 30 Nov].
+10. [ ] **This repo holds only public material** (milestone item 5). Private operations notes belong in a private repo [VERIFY with Hugh, decision due Mon 30 Nov]. Since issue #20, `_redirects` also sends `/CLAUDE.md`, `/.gitignore`, `/.github/*` and `/.claude/*` home, and the site check's "repo files" line fails if any tracked file outside the page has no `_redirects` rule, so a new repo file with no rule fails the check.
 
 ## Limits
 

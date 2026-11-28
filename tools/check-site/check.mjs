@@ -2,9 +2,10 @@
 // Checks the page in this repo (or SITE_DIR), never the live site.
 // Exit code 0 means every check passed.
 import { createServer } from "node:http";
-import { readFileSync, statSync, existsSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { createRequire } from "node:module";
-import { dirname, extname, join, normalize, resolve, sep } from "node:path";
+import { dirname, extname, join, normalize, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { HtmlValidate } from "html-validate";
 import { chromium } from "playwright";
@@ -44,6 +45,50 @@ function checkSize() {
   if (w !== 1200 || h !== 630) ok = false;
   parts.push(`og.png ${w} x ${h}`);
   record(ok, "size", parts.join(", "));
+}
+
+// 6. Repo files stay off the live site: Cloudflare Pages publishes every file in the repo,
+// so each tracked file other than the page itself must be caught by a _redirects rule.
+// A redirect wins over a file at the same path (Cloudflare Pages redirects docs).
+const PAGE_FILES = new Set(["index.html", "og.png", "_redirects"]);
+function trackedFiles() {
+  try {
+    const out = execFileSync("git", ["-C", root, "ls-files", "-z"], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] });
+    const files = out.split("\0").filter(Boolean);
+    if (files.length) return files;
+  } catch {
+    // not a git checkout (for example SITE_DIR is a plain copy): list the folder instead
+  }
+  return readdirSync(root, { recursive: true, withFileTypes: true })
+    .filter((d) => d.isFile())
+    .map((d) => relative(root, join(d.parentPath ?? d.path, d.name)).split(sep).join("/"))
+    .filter((f) => !f.startsWith(".git/") && !f.includes("node_modules/"));
+}
+function redirectRules() {
+  const file = join(root, "_redirects");
+  if (!existsSync(file)) return [];
+  return readFileSync(file, "utf8").split(/\r?\n/)
+    .map((line) => line.replace(/#.*/, "").trim().split(/\s+/))
+    .filter(([source, dest]) => source?.startsWith("/") && dest)
+    .filter(([, , code]) => (code || "302") !== "200") // a 200 rewrite still serves content
+    .map(([source]) => new RegExp("^" + source
+      .replace(/[.+?^${}()|[\]\\]/g, "\\$&")
+      .replace(/\*/g, ".*")
+      .replace(/:[A-Za-z]\w*/g, "[^/]+") + "$"));
+}
+function checkRepoFiles() {
+  const rules = redirectRules();
+  const files = trackedFiles().filter((f) => !PAGE_FILES.has(f));
+  const covered = (f) => {
+    const paths = ["/" + f];
+    if (f.endsWith(".html")) paths.push("/" + f.slice(0, -5)); // Pages also serves /name for name.html
+    return paths.every((p) => rules.some((r) => r.test(p)));
+  };
+  const top = (fs) => [...new Set(fs.map((f) => f.split("/")[0]))].sort();
+  const open = files.filter((f) => !covered(f));
+  record(open.length === 0, "repo files", open.length
+    ? `served on the live site, no _redirects rule: ${top(open).map((t) => "/" + t).join(" ")} (${open.length} file${open.length === 1 ? "" : "s"})`
+    : `${files.length} repo files outside the page, all caught by a _redirects rule: ${top(files).map((t) => "/" + t).join(" ")}`);
 }
 
 // A tiny static server for the repo root, so the page loads as it does on Cloudflare Pages.
@@ -166,6 +211,7 @@ const browser = await chromium.launch();
 try {
   await checkHtml();
   checkSize();
+  checkRepoFiles();
   await checkPages(browser, url);
   await checkInteraction(browser, url);
   await checkLinks(browser, url);
